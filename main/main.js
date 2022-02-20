@@ -10,11 +10,10 @@ const client = new Discord.Client({
 const updateMemberCount = () => {
     const guild = client.guilds.cache.get(config.SERVER_ID);
     var memberCount = guild.memberCount;
-    var memberCountChannel = client.channels.fetch("944578541893333022");
-    console.log(memberCountChannel);
-    memberCountChannel.setName(`Member Count: ${memberCount}`);
-
-   // console.log(`Member Count Updated: ${memberCount}`);
+    var memberCountChannel = guild.channels.resolve("944578541893333022");
+    memberCountChannel.edit({ name: `Member Count: ${memberCount}` })
+        .then(console.log(`Member Count Updated: ${memberCount}`))
+        .catch(console.error);
 };
 
 
@@ -26,7 +25,15 @@ client.on('ready', () => {
 /* If user joins server, check if we're looking at the right server, then auto grant "Friends" role. */
 client.on('guildMemberAdd', member => {
     if (client.guilds.cache.get(config.SERVER_ID)) {
+        updateMemberCount();
         return member.roles.add(member.guild.roles.cache.get(config.ROLE_ID));
+    }
+});
+
+client.on('guildMemberRemove', member => {
+    if (client.guilds.cache.get(config.SERVER_ID)) {
+        updateMemberCount();
+        return;
     }
 });
 
