@@ -9,7 +9,7 @@ const client = new Discord.Client({
 
 const updateMemberCount = () => {
     const guild = client.guilds.cache.get(config.SERVER_ID);
-    var memberCount = guild.members.fetch();
+    var memberCount = guild.members.fetch().then(res=>res.json()).then(data=>console.log(data));
     console.log(`Member Count Updated: ${memberCount}`);
    // var memberCountChannel = client.channels.get("944578541893333022");
    // memberCountChannel.setName(`Member Count: ${memberCount}`);
