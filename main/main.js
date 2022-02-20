@@ -17,3 +17,5 @@ client.on('guildMemberAdd', member => {
 });
 
 client.login(config.BOT_TOKEN);
+
+// Test commit
