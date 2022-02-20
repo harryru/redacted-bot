@@ -16,6 +16,7 @@ const updateMemberCount = () => {
         .catch(console.error);
 };
 
+const prefix = '!r';
 
 client.on('ready', () => {
     updateMemberCount();
@@ -36,6 +37,15 @@ client.on('guildMemberRemove', member => {
         return;
     }
 });
+
+client.on('onMessageCreate',message =>{
+    if(!message.content.startsWith(prefix) && !message.channelId === '804810738979176450') return;
+
+    console.log('Command Received');
+    message.channel.send('Test');
+
+    
+})
 
 client.login(config.BOT_TOKEN);
 
