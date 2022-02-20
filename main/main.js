@@ -20,6 +20,9 @@ const updateMemberCount = () => {
 client.on('ready', () => {
     updateMemberCount();
     console.log(`Launched as a bot: ${client.user.tag}!`);
+
+    
+
 });
 
 /* If user joins server, check if we're looking at the right server, then auto grant "Friends" role. */
