@@ -18,24 +18,23 @@ const updateMemberCount = () => {
 
 
 client.on('ready', () => {
-    updateMemberCount();
+    //updateMemberCount();
     console.log(`Launched as a bot: ${client.user.tag}!`);
-
-    
+    setInterval(updateMemberCount(), 300000);
 
 });
 
 /* If user joins server, check if we're looking at the right server, then auto grant "Friends" role. */
 client.on('guildMemberAdd', member => {
     if (client.guilds.cache.get(config.SERVER_ID)) {
-        updateMemberCount();
+        //updateMemberCount();
         return member.roles.add(member.guild.roles.cache.get(config.ROLE_ID));
     }
 });
 
 client.on('guildMemberRemove', member => {
     if (client.guilds.cache.get(config.SERVER_ID)) {
-        updateMemberCount();
+        //updateMemberCount();
         return;
     }
 });
