@@ -1,5 +1,5 @@
-const Discord = require("discord.js"); //Library
-const config = require("./config.json"); //Loading config file
+const Discord = require("discord.js");
+const config = require("./config.json");
 const client = new Discord.Client({ intents: [
     Discord.Intents.FLAGS.GUILDS,
     Discord.Intents.FLAGS.GUILD_MEMBERS
