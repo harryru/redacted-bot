@@ -10,7 +10,7 @@ client.on('ready', () => {
 });
 
 /* If user joins server, check if we're looking at the right server, then auto grant "Friends" role. */
-client.on('guildMemberAdd', member => { //User joins server
+client.on('guildMemberAdd', member => {
     if(client.guilds.cache.get(config.SERVER_ID)) {
         return member.roles.add(member.guild.roles.cache.get(config.ROLE_ID));
     }
