@@ -8,7 +8,7 @@ const client = new Discord.Client({
 });
 
 const updateMemberCount = () => {
-    const guild = client.guilds.get(config.SERVER_ID);
+    const guild = client.guilds.cache.get(config.SERVER_ID);
     var memberCount = guild.members.filter(member => !member.user.bot).size;
     var memberCountChannel = client.channels.get("944578541893333022");
     memberCountChannel.setName(`Member Count: ${memberCount}`);
