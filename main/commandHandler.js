@@ -13,7 +13,8 @@ const commandParser = (args, command) => {
 }
 
 const memberCountCommand = (args) => {
-    args.channel.send(`Member Count ${getMemberCount()}`);
+    const count = getMemberCount();
+    args.channel.send(`Member Count ${count}`);
 }
 
 module.exports = {
