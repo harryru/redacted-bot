@@ -38,14 +38,13 @@ client.on('guildMemberRemove', member => {
     }
 });
 
-client.on('onMessageCreate',message =>{
+client.on('message', message => {
+    console.log("message creation noticed");
     if(!message.content.startsWith(prefix) && !message.channelId === '804810738979176450') return;
 
     console.log('Command Received');
     message.channel.send('Test');
-
-    
-})
+});
 
 client.login(config.BOT_TOKEN);
 
