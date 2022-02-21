@@ -1,3 +1,5 @@
+import commandHandler from "./commandHandler";
+
 const Discord = require("discord.js");
 const config = require("./config.json");
 const client = new Discord.Client({
@@ -9,7 +11,7 @@ const client = new Discord.Client({
 });
 
 const prefix = '!r';
-var memberCount;
+export var memberCount;
 
 const updateMemberCount = () => {
     const guild = client.guilds.cache.get(config.SERVER_ID);
@@ -21,16 +23,6 @@ const updateMemberCount = () => {
         .catch(console.error);
 };
 
-const commandHandler = (message, command) => {
-    command.splice(0, 1);
-    switch (command[0]){
-        case "memberCount":
-            message.channel.send(`Member Count ${memberCount}`);
-            break;
-        default:
-            message.channel.send('Unkown command.');
-    }
-}
 
 client.on('ready', () => {
     updateMemberCount();
