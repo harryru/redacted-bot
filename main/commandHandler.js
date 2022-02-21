@@ -1,6 +1,6 @@
 const redacted = require("./Redacted.js");
 
-export const commandParser = (args, command) => {
+const commandParser = (args, command) => {
     command.splice(0, 1);
     switch (command[0]) {
         case "memberCount":

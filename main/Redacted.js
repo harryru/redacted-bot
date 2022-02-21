@@ -11,7 +11,7 @@ const client = new Discord.Client({
 });
 
 const prefix = '!r';
-export var memberCount;
+var memberCount;
 
 const getMemberCount = () =>{
     return memberCount;
