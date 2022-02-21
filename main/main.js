@@ -1,4 +1,4 @@
-import commandHandler from "./commandHandler";
+import {commandHandler} from "./commandHandler";
 
 const Discord = require("discord.js");
 const config = require("./config.json");
@@ -51,4 +51,3 @@ client.on('messageCreate', message => {
 });
 
 client.login(config.BOT_TOKEN);
-
