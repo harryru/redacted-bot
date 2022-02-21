@@ -1,4 +1,4 @@
-const commandHandler = require("./commandHandler.js");
+import commandHandler from "./commandHandler.js";
 
 const Discord = require("discord.js");
 const config = require("./config.json");
@@ -13,7 +13,7 @@ const client = new Discord.Client({
 const prefix = '!r';
 var memberCount;
 
-const getMemberCount = () =>{
+const getMemberCount = () => {
     return memberCount;
 }
 
