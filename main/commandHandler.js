@@ -1,11 +1,10 @@
-import { memberCount } from "./main";
-const memberCount = require("./main.js");
+const main = require("./main.js");
 
-export const commandHandler = (args, command) => {
+export const commandParser = (args, command) => {
     command.splice(0, 1);
-    switch (command[0]){
+    switch (command[0]) {
         case "memberCount":
-            memberCountCommand(args,command.splice(0,1));
+            memberCountCommand(args, command.splice(0, 1));
             break;
         default:
             args.channel.send('Unkown command.');
@@ -13,5 +12,5 @@ export const commandHandler = (args, command) => {
 }
 
 const memberCountCommand = (args) => {
-    args.channel.send(`Member Count ${memberCount}`);
+    args.channel.send(`Member Count ${main.getMemberCount()}`);
 }

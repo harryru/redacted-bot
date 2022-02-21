@@ -13,6 +13,10 @@ const client = new Discord.Client({
 const prefix = '!r';
 export var memberCount;
 
+const getMemberCount = () =>{
+    return memberCount;
+}
+
 const updateMemberCount = () => {
     const guild = client.guilds.cache.get(config.SERVER_ID);
     var count = guild.memberCount;
@@ -22,6 +26,7 @@ const updateMemberCount = () => {
         .then(console.log(`Member Count Updated: ${count}`))
         .catch(console.error);
 };
+
 
 
 client.on('ready', () => {
@@ -46,7 +51,7 @@ client.on('guildMemberRemove', member => {
 
 client.on('messageCreate', message => {
     if(message.content.startsWith(prefix) && message.channelId === '804810738979176450') {
-        commandHandler(message, message.content.split(" "));
+        commandHandler.commandParser(message, message.content.split(" "));
     }
 });
 
