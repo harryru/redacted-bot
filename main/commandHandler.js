@@ -1,4 +1,5 @@
 import { memberCount } from "./main";
+const memberCount = require("./main.js");
 
 export const commandHandler = (args, command) => {
     command.splice(0, 1);

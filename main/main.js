@@ -1,4 +1,4 @@
-import {commandHandler} from "./commandHandler";
+const commandHandler = require("./commandHandler.js");
 
 const Discord = require("discord.js");
 const config = require("./config.json");
