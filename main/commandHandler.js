@@ -1,4 +1,4 @@
-const {getMemberCount} = require('./Redacted')
+
 
 
 const commandParser = (args, command) => {
@@ -13,7 +13,7 @@ const commandParser = (args, command) => {
 }
 
 const memberCountCommand = (args) => {
-    const count = getMemberCount();
+    const count = args.guild.memberCount;
     args.channel.send(`Member Count ${count}`);
 }
 
