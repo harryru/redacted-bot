@@ -1,4 +1,4 @@
-const main = require("./main.js");
+const redacted = require("./Redacted.js");
 
 export const commandParser = (args, command) => {
     command.splice(0, 1);
@@ -12,5 +12,5 @@ export const commandParser = (args, command) => {
 }
 
 const memberCountCommand = (args) => {
-    args.channel.send(`Member Count ${main.getMemberCount()}`);
+    args.channel.send(`Member Count ${redacted.getMemberCount()}`);
 }
