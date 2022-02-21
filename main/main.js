@@ -20,9 +20,9 @@ const updateMemberCount = () => {
 };
 
 const commandHandler = (command) => {
-    console.log('command: ', command)
+    command.splice(0, 1);
+    console.log('command: ', command);
 }
-
 
 client.on('ready', () => {
     updateMemberCount();
@@ -46,12 +46,7 @@ client.on('guildMemberRemove', member => {
 
 client.on('messageCreate', message => {
     if(message.content.startsWith(prefix) && message.channelId === '804810738979176450') {
-        console.log('Command Received');
-        message.channel.send('Test');
-
-        const args = message.content.slice(prefix.length).split(/ +/);
-        const command = args.shift().toLowerCase();
-        commandHandler(command);
+        commandHandler(message.content.split(" "));
 
     }
 });
