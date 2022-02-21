@@ -1,5 +1,4 @@
-
-const commandHandler = import('./commandHandler.js');
+//import {commandParser} from "./commandHandler.mjs";
 
 const Discord = require("discord.js");
 const config = require("./config.json");
@@ -47,11 +46,11 @@ client.on('guildMemberRemove', member => {
         return;
     }
 });
-
+/*
 client.on('messageCreate', message => {
     if(message.content.startsWith(prefix) && message.channelId === '804810738979176450') {
-        commandHandler.commandParser(message, message.content.split(" "));
+        commandParser(message, message.content.split(" "));
     }
 });
-
+*/
 client.login(config.BOT_TOKEN);
