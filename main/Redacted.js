@@ -27,8 +27,6 @@ const updateMemberCount = () => {
         .catch(console.error);
 };
 
-
-
 client.on('ready', () => {
     updateMemberCount();
     console.log(`Launched as a bot: ${client.user.tag}!`);
