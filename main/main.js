@@ -8,6 +8,8 @@ const client = new Discord.Client({
     ]
 });
 
+const prefix = '!r';
+
 const updateMemberCount = () => {
     const guild = client.guilds.cache.get(config.SERVER_ID);
     var memberCount = guild.memberCount;
@@ -17,7 +19,10 @@ const updateMemberCount = () => {
         .catch(console.error);
 };
 
-const prefix = '!r';
+const commandHandler = (command) => {
+    console.log('command: ', command)
+}
+
 
 client.on('ready', () => {
     updateMemberCount();
@@ -43,6 +48,11 @@ client.on('messageCreate', message => {
     if(message.content.startsWith(prefix) && message.channelId === '804810738979176450') {
         console.log('Command Received');
         message.channel.send('Test');
+
+        const args = message.content.slice(prefix.length).split(/ +/);
+        const command = args.shift().toLowerCase();
+        commandHandler(command);
+
     }
 });
 
