@@ -1,4 +1,4 @@
-//import {commandParser} from "./commandHandler.mjs";
+const {commandParser} = require('./commandHandler')
 
 const Discord = require("discord.js");
 const config = require("./config.json");
@@ -46,11 +46,16 @@ client.on('guildMemberRemove', member => {
         return;
     }
 });
-/*
+
 client.on('messageCreate', message => {
     if(message.content.startsWith(prefix) && message.channelId === '804810738979176450') {
         commandParser(message, message.content.split(" "));
     }
 });
-*/
+
 client.login(config.BOT_TOKEN);
+
+
+module.exports = {
+    getMemberCount,
+}
