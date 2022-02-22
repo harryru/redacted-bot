@@ -21,13 +21,19 @@ const commandParser = (args, command) => {
     }
 }
 
+const reactComplete = (args) => {
+    args.react(args.guild.emojis.cache.get("944559411530178631"));
+}
+
 const memberCountCommand = (args) => {
     const count = args.guild.memberCount;
     args.channel.send(`Member Count ${count}`);
+    reactComplete(args);
 }
 
 const inviteCommand = (args) => {
-    args.channel.send(`**Discord** - ${inviteLink}`);
+    args.channel.send(`**Discord** - https://discord.gg/${inviteLink}`);
+    reactComplete(args);
 }
 
 module.exports = {
