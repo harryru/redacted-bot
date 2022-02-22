@@ -1,3 +1,5 @@
+//Move autorole and update member count into seperatefile.
+
 const {commandParser} = require('./commandHandler')
 
 const Discord = require("discord.js");
@@ -11,6 +13,12 @@ const client = new Discord.Client({
 });
 
 const prefix = '!r';
+/*
+const adminRole = config.ADMIN_ROLE_ID;
+const inviteLink = config.INVITE_LINK;
+const autoRole = config.AUTO_ROLE_ID;
+const memberCountChannel = config.MEMBER_COUNT_CHANNEL_ID;
+*/
 
 const getMemberCount = () => {
     return memberCount;
@@ -34,7 +42,7 @@ client.on('ready', () => {
 client.on('guildMemberAdd', member => {
     if (client.guilds.cache.get(config.SERVER_ID)) {
         updateMemberCount();
-        return member.roles.add(member.guild.roles.cache.get(config.ROLE_ID));
+        return member.roles.add(member.guild.roles.cache.get(config.AUTO_ROLE_ID));
     }
 });
 
