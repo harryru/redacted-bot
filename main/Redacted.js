@@ -15,7 +15,6 @@ const client = new Discord.Client({
 const prefix = '!r';
 /*
 const adminRole = config.ADMIN_ROLE_ID;
-const inviteLink = config.INVITE_LINK;
 const autoRole = config.AUTO_ROLE_ID;
 const memberCountChannel = config.MEMBER_COUNT_CHANNEL_ID;
 */

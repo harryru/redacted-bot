@@ -1,3 +1,7 @@
+const config = require("./config.json");
+
+const inviteLink = config.INVITE_LINK;
+
 //check for if command has extra values, if so reject for incorrect syntax.
 //do this in a function invalidArguments()
 //add case where if command is just "!r" then gives a list of commands or help embed
@@ -22,10 +26,8 @@ const memberCountCommand = (args) => {
     args.channel.send(`Member Count ${count}`);
 }
 
-//change to pull disc inv link from config
 const inviteCommand = (args) => {
-    const count = args.guild.memberCount;
-    args.channel.send(`**Discord** - ${count}`);
+    args.channel.send(`**Discord** - ${inviteLink}`);
 }
 
 module.exports = {
