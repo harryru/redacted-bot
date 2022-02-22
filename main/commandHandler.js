@@ -22,7 +22,7 @@ const commandParser = (args, command) => {
 }
 
 const reactComplete = (args) => {
-    args.react(args.guild.emojis.cache.get("944559411530178631"));
+    args.react("<:white_check_mark: 944559411530178631");
 }
 
 const memberCountCommand = (args) => {
