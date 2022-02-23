@@ -7,8 +7,8 @@ const inviteLink = config.INVITE_LINK;
 //add case where if command is just "!r" then gives a list of commands or help embed
 const commandParser = (args, command) => {
     command.splice(0, 1);
-    switch (command[0]) {
-        case "memberCount":
+    switch (command[0].toLowerCase()) {
+        case "membercount":
             memberCountCommand(args, command.splice(0, 1));
             //reactComplete
             break;
@@ -22,7 +22,7 @@ const commandParser = (args, command) => {
 }
 
 const reactComplete = (args) => {
-    args.react("<:white_check_mark: 944559411530178631");
+    args.react("✅");
 }
 
 const memberCountCommand = (args) => {
