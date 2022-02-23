@@ -1,3 +1,4 @@
+const { reactFail } = require("../commands.js");
 const methods = require("../commands.js");
 const config = require("../config.json");
 
@@ -33,7 +34,7 @@ const permissionCheck = (args,command) => {
         }
     })
     PERMISSIONS[command].user.map(userRole => {
-        if (args.member.roles.cache.has(userRole)) {
+        if (args.member.roles.cache.has(userRole) || args.member.roles.cache.has(config.ADMIN_ROLE_ID)) {
             validUser = true;
         }
     })
@@ -41,11 +42,8 @@ const permissionCheck = (args,command) => {
         return true;
     }
     else if (validChannel && !validUser) {
-        //reactFail
+        reactFail(args);
         return false;
-    }
-    else if (!validChannel && validUser) {
-        return true;
     }
     return false;
 }

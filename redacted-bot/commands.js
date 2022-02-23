@@ -66,5 +66,6 @@ module.exports={
     invite: inviteCommand,
     membercount: memberCountCommand,
     avatar: avatarCommand,
-    unknownCommand: unknownCommand
+    unknownCommand: unknownCommand,
+    reactFail: reactFail
 }
