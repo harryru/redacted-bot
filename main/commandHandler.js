@@ -2,7 +2,6 @@ const methods = require("./commands.js");
 
 const commandParser = (args,command) => {
     command.splice(0, 1);
-    console.log(methods, command, typeof methods[command[0].toLowerCase()]);
     if ((typeof methods[command[0].toLowerCase()] === undefined)) {
         methods['unknownCommand'](args,command);
         return;
