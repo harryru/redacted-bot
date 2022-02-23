@@ -1,4 +1,4 @@
-const methods = require("./commands.js");
+const methods = require("../commands.js");
 
 const commandParser = (args,command) => {
     command.splice(0, 1);

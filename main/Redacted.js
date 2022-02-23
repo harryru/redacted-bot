@@ -1,4 +1,6 @@
-const {commandParser} = require('./commandHandler')
+const {commandParser} = require('./features/commandHandler')
+const {updateMemberCount} = require('./features/updateMemberCount');
+const {autoRole} = require('./features/autoRole');
 
 const Discord = require("discord.js");
 const config = require("./config.json");
@@ -19,35 +21,23 @@ const autoRole = config.AUTO_ROLE_ID;
 const memberCountChannel = config.MEMBER_COUNT_CHANNEL_ID;
 */
 
-const getMemberCount = () => {
-    return memberCount;
-}
-
-const updateMemberCount = () => {
-    const guild = client.guilds.cache.get(config.SERVER_ID);
-    var count = guild.memberCount;
-    var memberCountChannel = guild.channels.resolve("944578541893333022");
-    memberCountChannel.edit({ name: `Member Count: ${count}` })
-        .then(console.log(`Member Count Updated: ${count}`))
-        .catch(console.error);
-};
-
 client.on('ready', () => {
-    updateMemberCount();
+    updateMemberCount(client);
     console.log(`Launched as a bot: ${client.user.tag}!`);
 });
 
 /* If user joins server, check if we're looking at the right server, then auto grant "Friends" role. */
 client.on('guildMemberAdd', member => {
     if (client.guilds.cache.get(config.SERVER_ID)) {
-        updateMemberCount();
-        return member.roles.add(member.guild.roles.cache.get(config.AUTO_ROLE_ID));
+        updateMemberCount(client);
+        autoRole(member);
+        return 
     }
 });
 
 client.on('guildMemberRemove', member => {
     if (client.guilds.cache.get(config.SERVER_ID)) {
-        updateMemberCount();
+        updateMemberCount(client);
         return;
     }
 });
