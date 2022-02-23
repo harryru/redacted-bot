@@ -25,7 +25,8 @@ const commandParser = (args,command) => {
 const permissionCheck = (args,command) => {
     var validChannel = false;
     //var validUser = false;
-    PERMISSIONS[command].channels.map(channel => {
+    console.log(PERMISSIONS,command);
+    PERMISSIONS[command][channels].map(channel => {
         if(channel === args.channel.id){
             validChannel = true;
         }
