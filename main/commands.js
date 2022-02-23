@@ -62,10 +62,10 @@ const reactFail = (args) => {
 
 
 module.exports={
-    listCommands: listCommands,
-    inviteCommand: inviteCommand,
-    memberCountCommand: memberCountCommand,
-    avatarCommand: avatarCommand,
+    commands: listCommands,
+    invite: inviteCommand,
+    membercount: memberCountCommand,
+    avatar: avatarCommand,
     reactComplete: reactComplete,
     checkValidSyntax: checkValidSyntax,
     unknownCommand: unknownCommand
