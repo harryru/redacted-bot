@@ -2,9 +2,6 @@ const config = require("./config.json");
 
 const inviteLink = config.INVITE_LINK;
 
-//check for if command has extra values, if so reject for incorrect syntax.
-//do this in a function invalidArguments()
-//add case where if command is just "!r" then gives a list of commands or help embed
 const commandParser = (args, command) => {
     command.splice(0, 1);
 
@@ -25,6 +22,10 @@ const commandParser = (args, command) => {
             case "membercount":
                 command.splice(0, 1)
                 memberCountCommand(args, command);
+                break;
+            case "avatar":
+                command.splice(0, 1)
+                avatarCommand(args, command);
                 break;
             default:
                 reactFail(args);
@@ -52,7 +53,14 @@ const reactFail = (args) => {
 
 const listCommands = (args, command) => {
     if (checkValidSyntax(args, command, 0)) {
-        args.channel.send("!r <command> -- commands, invite, membercount");
+        args.channel.send("!r <command> -- commands, invite, membercount, avatar");
+        reactComplete(args);
+    }
+}
+
+const inviteCommand = (args, command) => {
+    if (checkValidSyntax(args, command, 0)) {
+        args.channel.send(`**Discord** - https://discord.gg/${inviteLink}`);
         reactComplete(args);
     }
 }
@@ -65,9 +73,15 @@ const memberCountCommand = (args, command) => {
     }
 }
 
-const inviteCommand = (args, command) => {
-    if (checkValidSyntax(args, command, 0)) {
-        args.channel.send(`**Discord** - https://discord.gg/${inviteLink}`);
+const avatarCommand = (args, command) => {
+    if (checkValidSyntax(args, command, 1)) {
+        if (command.length === 0) {
+            //embed this whole pic
+            args.channel.send(args.author.avatarURL());
+        }
+        else {
+            //solve for avatar of given tag
+        }
         reactComplete(args);
     }
 }
