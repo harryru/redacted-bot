@@ -1,5 +1,5 @@
 const methods = require("../commands.js");
-const config = require("./config.json");
+const config = require("../config.json");
 
 const commandParser = (args,command) => {
     command.splice(0, 1);
