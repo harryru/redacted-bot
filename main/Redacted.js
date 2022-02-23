@@ -1,5 +1,3 @@
-//Move autorole and update member count into seperatefile.
-
 const {commandParser} = require('./commandHandler')
 
 const Discord = require("discord.js");
@@ -15,6 +13,7 @@ const client = new Discord.Client({
 
 const prefix = '!r';
 /*
+prefix as well, etc
 const adminRole = config.ADMIN_ROLE_ID;
 const autoRole = config.AUTO_ROLE_ID;
 const memberCountChannel = config.MEMBER_COUNT_CHANNEL_ID;
@@ -60,7 +59,6 @@ client.on('messageCreate', message => {
 });
 
 client.login(config.BOT_TOKEN);
-
 
 module.exports = {
     getMemberCount,

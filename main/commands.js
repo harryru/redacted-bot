@@ -1,5 +1,6 @@
-// File Containing Command Functions....
-
+/* 
+ * File Containing Command Functions....
+*/
 const config = require("./config.json");
 const inviteLink = config.INVITE_LINK;
 
