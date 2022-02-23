@@ -9,52 +9,67 @@ const commandParser = (args, command) => {
     command.splice(0, 1);
 
     if (command.length === 0) {
-        listCommands(args);
+        listCommands(args, command);
     }
     
     else {
         switch (command[0].toLowerCase()) {
             case "commands":
-                listCommands(args, command.splice(0, 1));
+                command.splice(0, 1);
+                listCommands(args, command);
                 break;
             case "invite":
-                inviteCommand(args, command.splice(0, 1));
+                command.splice(0, 1)
+                inviteCommand(args, command);
                 break;
             case "membercount":
-                memberCountCommand(args, command.splice(0, 1));
+                command.splice(0, 1)
+                memberCountCommand(args, command);
                 break;
             default:
+                reactFail(args);
                 args.channel.send('Unkown command.');
         }
     }
 }
 
-const checkInvalidSyntax = (args, command, parameters) => {
+const checkValidSyntax = (args, command, parameters) => {
     if (command.length > parameters) {
-
+        args.channel.send("Invalid syntax.");
+        reactFail(args);
+        return false;
     }
+    return true;
 }
 
 const reactComplete = (args) => {
     args.react("✅");
 }
 
+const reactFail = (args) => {
+    args.react("❌");
+}
+
 const listCommands = (args, command) => {
-    args.channel.send("!r <command> -- commands, invite, membercount");
-    reactComplete(args);
+    if (checkValidSyntax(args, command, 0)) {
+        args.channel.send("!r <command> -- commands, invite, membercount");
+        reactComplete(args);
+    }
 }
 
 const memberCountCommand = (args, command) => {
-    checkInvalidSyntax(args, command, 0);
-    const count = args.guild.memberCount;
-    args.channel.send(`Member Count ${count}`);
-    reactComplete(args);
+    if (checkValidSyntax(args, command, 0)) {
+        const count = args.guild.memberCount;
+        args.channel.send(`Member Count ${count}`);
+        reactComplete(args);
+    }
 }
 
 const inviteCommand = (args, command) => {
-    checkInvalidSyntax(args, command, 0);
-    args.channel.send(`**Discord** - https://discord.gg/${inviteLink}`);
-    reactComplete(args);
+    if (checkValidSyntax(args, command, 0)) {
+        args.channel.send(`**Discord** - https://discord.gg/${inviteLink}`);
+        reactComplete(args);
+    }
 }
 
 module.exports = {

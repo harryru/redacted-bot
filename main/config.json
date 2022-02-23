@@ -1,5 +1,6 @@
 {
     "BOT_TOKEN": "xyz",
+    "BOT_ID": "",
     "SERVER_ID": "804809698389393429",
     "PREFIX": "!r",
     "ADMIN_ROLE_ID": "",
