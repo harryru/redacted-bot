@@ -29,7 +29,7 @@ const permissionCheck = (args,command) => {
     var validChannel = false;
     var validUser = false;
     PERMISSIONS[command].channels.map(channel => {
-        if(channel === args.channel.id){
+        if(channel === args.channel.id || args.member.roles.cache.has(config.ADMIN_ROLE_ID)){
             validChannel = true;
         }
     })
@@ -52,7 +52,12 @@ const PERMISSIONS = {
     invite: {
         channels: [config.BOT_CHANNEL_ID],
         user: [config.ADMIN_ROLE_ID]
-    }
+    },
+    commands:{
+        channels: [config.BOT_CHANNEL_ID],
+        user: [config.ADMIN_ROLE_ID]
+    },
+    
 }
 
 module.exports = {
