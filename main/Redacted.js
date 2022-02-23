@@ -1,6 +1,6 @@
 //Move autorole and update member count into seperatefile.
 
-const {commandParserProto} = require('./commandHandler')
+const {commandParser} = require('./commandHandler')
 
 const Discord = require("discord.js");
 const config = require("./config.json");
@@ -55,7 +55,7 @@ client.on('guildMemberRemove', member => {
 
 client.on('messageCreate', message => {
     if (!(message.author.id === "944508079532294144") && message.content.startsWith(prefix) /* && message.channelId === '804810738979176450' */) {
-        commandParserProto(message, message.content.split(" "));
+        commandParser(message, message.content.split(" "));
     }
 });
 

@@ -60,13 +60,10 @@ const reactFail = (args) => {
     args.react("❌");
 }
 
-
 module.exports={
     commands: listCommands,
     invite: inviteCommand,
     membercount: memberCountCommand,
     avatar: avatarCommand,
-    reactComplete: reactComplete,
-    checkValidSyntax: checkValidSyntax,
     unknownCommand: unknownCommand
 }
