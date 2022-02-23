@@ -1,6 +1,18 @@
 const config = require("./config.json");
+const methods = require("./commands.js");
 
 const inviteLink = config.INVITE_LINK;
+
+
+/// ProtoType of more robust commandParser...
+const commandParserProto = (args,command) => {
+    if(!(typeof methods[command[0].toLowerCase()] === undefined)){
+        return;
+    }else{
+        command.splice(0, 1);
+        methods[command[0].toLowerCase()](args,command);
+    }
+}
 
 const commandParser = (args, command) => {
     command.splice(0, 1);
