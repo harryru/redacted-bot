@@ -4,6 +4,7 @@ const commandParser = (args,command) => {
     command.splice(0, 1);
     if (command.length === 0) {
         methods['commands'](args,command);
+        return;
     }
     if ((typeof methods[command[0].toLowerCase()] === undefined)) {
         methods['unknownCommand'](args,command);

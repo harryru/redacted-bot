@@ -31,7 +31,7 @@ client.on('guildMemberAdd', member => {
     if (client.guilds.cache.get(config.SERVER_ID)) {
         updateMemberCount(client);
         autoRole(member);
-        return 
+        return;
     }
 });
 
