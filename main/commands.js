@@ -2,7 +2,7 @@
  * File Containing Command Functions....
 */
 const config = require("./config.json");
-const inviteLink = config.INVITE_LINK;
+
 
 const listCommands = (args, command) => {
     if (checkValidSyntax(args, command, 0)) {
@@ -13,7 +13,7 @@ const listCommands = (args, command) => {
 
 const inviteCommand = (args, command) => {
     if (checkValidSyntax(args, command, 0)) {
-        args.channel.send(`**Discord** - https://discord.gg/${inviteLink}`);
+        args.channel.send(`**Discord** - https://discord.gg/${config.INVITE_LINK}`);
         reactComplete(args);
     }
 }
