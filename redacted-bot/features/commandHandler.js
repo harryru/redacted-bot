@@ -34,6 +34,7 @@ const permissionCheck = (args,command) => {
     if(validChannel){
         return true;
     }
+    return false;
 }
 
 
