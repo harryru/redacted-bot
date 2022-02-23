@@ -10,39 +10,38 @@ const commandParser = (args,command) => {
     if ((typeof methods[command[0].toLowerCase()] === undefined)) {
         methods['unknownCommand'](args,command);
         return;
-    } else {
+    }
+    else {
         cmd = command.slice();
         
-        if(permissionCheck(args,command[0].toLowerCase())){
+        if (permissionCheck(args,command[0].toLowerCase())) {
             cmd.splice(0, 1);
             methods[command[0].toLowerCase()](args,cmd);
-        }else{
+        }
+        else {
             return;
         }
     }
 }
 
-
 const permissionCheck = (args,command) => {
     var validChannel = false;
     var validUser = false;
-    console.log(PERMISSIONS,command);
     PERMISSIONS[command].channels.map(channel => {
         if(channel === args.channel.id){
             validChannel = true;
         }
     })
     PERMISSIONS[command].user.map(userRole => {
-        if(userRole === args.roles.cache.id){
+        if (args.member.roles.cache.has(userRole)) {
             validUser = true;
         }
     })
-    if(validChannel && validUser){
+    if (validChannel && validUser) {
         return true;
     }
     return false;
 }
-
 
 const PERMISSIONS = {
     invite: {
