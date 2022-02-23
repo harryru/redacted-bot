@@ -54,7 +54,7 @@ client.on('guildMemberRemove', member => {
 });
 
 client.on('messageCreate', message => {
-    if(message.content.startsWith(prefix) && message.channelId === '804810738979176450') {
+    if (!(message.author.id === "944508079532294144") && message.content.startsWith(prefix) && message.channelId === '804810738979176450') {
         commandParser(message, message.content.split(" "));
     }
 });
