@@ -13,14 +13,6 @@ const client = new Discord.Client({
     ]
 });
 
-const prefix = '!r';
-/*
-prefix as well, etc
-const adminRole = config.ADMIN_ROLE_ID;
-const autoRole = config.AUTO_ROLE_ID;
-const memberCountChannel = config.MEMBER_COUNT_CHANNEL_ID;
-*/
-
 client.on('ready', () => {
     updateMemberCount(client);
     console.log(`Launched as a bot: ${client.user.tag}!`);
@@ -43,7 +35,7 @@ client.on('guildMemberRemove', member => {
 });
 
 client.on('messageCreate', message => {
-    if (!(message.author.id === config.BOT_ID) && message.content.startsWith(prefix) /* && message.channelId === '804810738979176450' */) {
+    if (!(message.author.id === config.BOT_ID) && message.content.startsWith(config.PREFIX) /* && message.channelId === '804810738979176450' */) {
         commandParser(message, message.content.split(" "));
     }
 });
