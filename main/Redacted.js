@@ -1,6 +1,6 @@
 //Move autorole and update member count into seperatefile.
 
-const {commandParser} = require('./commandHandler')
+const {commandParserProto} = require('./commandHandler')
 
 const Discord = require("discord.js");
 const config = require("./config.json");
