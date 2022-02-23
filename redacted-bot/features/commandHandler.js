@@ -29,7 +29,7 @@ const permissionCheck = (args,command) => {
     var validChannel = false;
     var validUser = false;
     PERMISSIONS[command].channels.map(channel => {
-        if( channel === 'EVERYONE' ||channel === args.channel.id || args.member.roles.cache.has(config.ADMIN_ROLE_ID)){
+        if( channel === 'ANY_CHANNEL' ||channel === args.channel.id || args.member.roles.cache.has(config.ADMIN_ROLE_ID)){
             validChannel = true;
         }
     })
@@ -50,19 +50,19 @@ const permissionCheck = (args,command) => {
 
 const PERMISSIONS = {
     invite: {
-        channels: ['EVERYONE',config.BOT_CHANNEL_ID],
+        channels: [config.BOT_CHANNEL_ID],
         user: ['EVERYONE', config.ADMIN_ROLE_ID]
     },
     commands:{
-        channels: ['EVERYONE', config.BOT_CHANNEL_ID],
+        channels: [config.BOT_CHANNEL_ID],
         user: ['EVERYONE', config.ADMIN_ROLE_ID]
     },
     avatar:{
-        channels: ['EVERYONE', config.BOT_CHANNEL_ID],
+        channels: [config.BOT_CHANNEL_ID],
         user: ['EVERYONE', config.ADMIN_ROLE_ID]
     },
     membercount:{
-        channels: ['EVERYONE', config.BOT_CHANNEL_ID],
+        channels: [config.BOT_CHANNEL_ID],
         user: ['EVERYONE', config.ADMIN_ROLE_ID]
     }
     
