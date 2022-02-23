@@ -1,11 +1,11 @@
-const config = require("./config.json");
+//const config = require("./config.json");
 const methods = require("./commands.js");
-
-const inviteLink = config.INVITE_LINK;
+//const inviteLink = config.INVITE_LINK;
 
 
 /// ProtoType of more robust commandParser...
 const commandParserProto = (args,command) => {
+    console.log(typeof methods[command[0].toLowerCase()]);
     if(!(typeof methods[command[0].toLowerCase()] === undefined)){
         methods['unknownCommand'](args,command);
         return;
@@ -15,6 +15,7 @@ const commandParserProto = (args,command) => {
     }
 }
 
+/**
 const commandParser = (args, command) => {
     command.splice(0, 1);
 
@@ -98,7 +99,9 @@ const avatarCommand = (args, command) => {
         reactComplete(args);
     }
 }
+ */
+
 
 module.exports = {
-    commandParser,
+    commandParserProto,
 }

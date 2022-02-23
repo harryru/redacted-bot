@@ -1,5 +1,8 @@
 // File Containing Command Functions....
 
+const config = require("./config.json");
+const inviteLink = config.INVITE_LINK;
+
 const listCommands = (args, command) => {
     if (checkValidSyntax(args, command, 0)) {
         args.channel.send("!r <command> -- commands, invite, membercount, avatar");
