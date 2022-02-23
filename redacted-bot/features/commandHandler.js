@@ -40,6 +40,13 @@ const permissionCheck = (args,command) => {
     if (validChannel && validUser) {
         return true;
     }
+    else if (validChannel && !validUser) {
+        //reactFail
+        return false;
+    }
+    else if (!validChannel && validUser) {
+        return true;
+    }
     return false;
 }
 
