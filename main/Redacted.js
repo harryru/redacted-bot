@@ -49,7 +49,3 @@ client.on('messageCreate', message => {
 });
 
 client.login(config.BOT_TOKEN);
-
-module.exports = {
-    getMemberCount,
-}

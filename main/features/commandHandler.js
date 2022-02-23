@@ -1,3 +1,4 @@
+const config = require("../config.json");
 const methods = require("../commands.js");
 
 const commandParser = (args,command) => {

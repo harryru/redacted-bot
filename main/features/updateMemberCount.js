@@ -1,3 +1,5 @@
+const config = require("../config.json");
+
 const updateMemberCount = (client) => {
     const guild = client.guilds.cache.get(config.SERVER_ID);
     var count = guild.memberCount;
@@ -6,8 +8,6 @@ const updateMemberCount = (client) => {
         .then(console.log(`Member Count Updated: ${count}`))
         .catch(console.error);
 };
-
-
 
 module.exports = {
     updateMemberCount,
