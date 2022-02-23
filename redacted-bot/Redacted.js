@@ -18,7 +18,6 @@ client.on('ready', () => {
     console.log(`Launched as a bot: ${client.user.tag}!`);
 });
 
-/* If user joins server, check if we're looking at the right server, then auto grant "Friends" role. */
 client.on('guildMemberAdd', member => {
     if (client.guilds.cache.get(config.SERVER_ID)) {
         updateMemberCount(client);
@@ -35,7 +34,7 @@ client.on('guildMemberRemove', member => {
 });
 
 client.on('messageCreate', message => {
-    if (!(message.author.id === config.BOT_ID) && message.content.startsWith(config.PREFIX) /* && message.channelId === '804810738979176450' */) {
+    if (!(message.author.id === config.BOT_ID) && message.content.startsWith(config.PREFIX)) {
         commandParser(message, message.content.split(" "));
     }
 });
