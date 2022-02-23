@@ -12,7 +12,8 @@ const commandParser = (args,command) => {
         return;
     } else {
         cmd = command.slice();
-        if(permissionCheck(command[0].toLowerCase())){
+        
+        if(permissionCheck(args,command[0].toLowerCase())){
             cmd.splice(0, 1);
             methods[command[0].toLowerCase()](args,cmd);
         }else{
