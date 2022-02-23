@@ -1,4 +1,5 @@
 const methods = require("../commands.js");
+const config = require("./config.json");
 
 const commandParser = (args,command) => {
     command.splice(0, 1);
@@ -38,8 +39,8 @@ const permissionCheck = (args,command) => {
 
 const PERMISSIONS = {
     invite: {
-        channels: [BOT_CHANNEL_ID],
-        user: [ADMIN_ROLE_ID]
+        channels: [config.BOT_CHANNEL_ID],
+        user: [config.ADMIN_ROLE_ID]
     }
 }
 
