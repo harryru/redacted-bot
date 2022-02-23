@@ -1,8 +1,10 @@
-const config = require("../config.json");
 const methods = require("../commands.js");
 
 const commandParser = (args,command) => {
     command.splice(0, 1);
+    if (command.length === 0) {
+        methods['commands'](args,command);
+    }
     if ((typeof methods[command[0].toLowerCase()] === undefined)) {
         methods['unknownCommand'](args,command);
         return;
