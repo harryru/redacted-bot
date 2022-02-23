@@ -7,6 +7,7 @@ const inviteLink = config.INVITE_LINK;
 /// ProtoType of more robust commandParser...
 const commandParserProto = (args,command) => {
     if(!(typeof methods[command[0].toLowerCase()] === undefined)){
+        methods['unknownCommand'](args,command);
         return;
     }else{
         command.splice(0, 1);
