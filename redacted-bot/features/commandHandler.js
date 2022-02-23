@@ -22,12 +22,11 @@ const commandParser = (args,command) => {
     }
 }
 
-
 const permissionCheck = (args,command) => {
     var validChannel = false;
     //var validUser = false;
     console.log(PERMISSIONS,command);
-    PERMISSIONS[command][channels].map(channel => {
+    PERMISSIONS[command].channels.map(channel => {
         if(channel === args.channel.id){
             validChannel = true;
         }
@@ -38,7 +37,6 @@ const permissionCheck = (args,command) => {
     }
     return false;
 }
-
 
 const PERMISSIONS = {
     invite: {
