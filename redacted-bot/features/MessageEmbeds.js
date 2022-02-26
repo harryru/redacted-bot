@@ -1,8 +1,7 @@
 const {MessageEmbed} = require('discord.js');
 
 
-const constructEmbed = () => {
-
+const constructEmbed = (args) => {
 
     const testEmbed = new MessageEmbed(args)
         .setColor('#0099ff')
