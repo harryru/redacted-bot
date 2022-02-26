@@ -50,6 +50,7 @@ const postCommand = (args,command) => {
 
 const checkValidSyntax = (args, command, parameters) => {
     if(parameters === 'Unlimited'){
+        args.channel.send(args.content);
         return true;
     }
     else if (command.length > parameters) {
