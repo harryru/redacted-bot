@@ -64,6 +64,10 @@ const PERMISSIONS = {
     membercount:{
         channels: [config.BOT_CHANNEL_ID],
         user: ['EVERYONE', config.ADMIN_ROLE_ID]
+    },
+    post:{
+        channels: [config.BOT_CHANNEL_ID],
+        user: ['EVERYONE', config.ADMIN_ROLE_ID]
     }
     
 }

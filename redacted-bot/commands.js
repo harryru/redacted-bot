@@ -2,7 +2,7 @@
  * File Containing Command Functions....
 */
 const config = require("./config.json");
-
+const {constructEmbed} = require("./features/MessageEmbeds");
 
 const listCommands = (args, command) => {
     if (checkValidSyntax(args, command, 0)) {
@@ -39,6 +39,15 @@ const avatarCommand = (args, command) => {
     }
 }
 
+const postCommand = (args,command) => {
+    if (checkValidSyntax(args, command, 0)) {
+        if (command.length === 0) {
+            constructEmbed(args);
+            reactComplete(args);
+        }
+    }
+}
+
 const checkValidSyntax = (args, command, parameters) => {
     if (command.length > parameters) {
         args.channel.send("Invalid syntax.");
@@ -66,6 +75,7 @@ module.exports={
     invite: inviteCommand,
     membercount: memberCountCommand,
     avatar: avatarCommand,
+    post: postCommand,
     unknownCommand: unknownCommand,
     reactFail: reactFail
 }
