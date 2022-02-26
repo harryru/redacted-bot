@@ -21,6 +21,7 @@ const constructEmbed = (args) => {
         .setTimestamp()
         .setFooter({ text: 'Some footer text here', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
 
+    args.channel.send({embeds: [testEmbed]});
 }
 
 
