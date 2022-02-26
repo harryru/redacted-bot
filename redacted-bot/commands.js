@@ -41,10 +41,9 @@ const avatarCommand = (args, command) => {
 
 const postCommand = (args,command) => {
     if (checkValidSyntax(args, command, 'Unlimited')) {
-        if (command.length === 0) {
             constructEmbed(args);
             reactComplete(args);
-        }
+        
     };
 }
 
