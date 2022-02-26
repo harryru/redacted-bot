@@ -9,11 +9,12 @@ const commandParser = (args,command) => {
         return;
     }
     console.log(command,command[0].toLowerCase(),(methods[command[0].toLowerCase()] === undefined));
+    console.log(typeof methods[command[0].toLowerCase()]);
     if ((typeof methods[command[0].toLowerCase()] === undefined)) {
         methods['unknownCommand'](args,command);
         return;
     }
-    else {
+    else if ((typeof methods[command[0].toLowerCase()] != undefined)) {
         cmd = command.slice();
         
         if (permissionCheck(args,command[0].toLowerCase())) {
