@@ -40,16 +40,19 @@ const avatarCommand = (args, command) => {
 }
 
 const postCommand = (args,command) => {
-    if (checkValidSyntax(args, command, 0)) {
+    if (checkValidSyntax(args, command, 'Unlimited')) {
         if (command.length === 0) {
             constructEmbed(args);
             reactComplete(args);
         }
-    }
+    };
 }
 
 const checkValidSyntax = (args, command, parameters) => {
-    if (command.length > parameters) {
+    if(parameters === 'Unlimited'){
+        return true;
+    }
+    else if (command.length > parameters) {
         args.channel.send("Invalid syntax.");
         reactFail(args);
         return false;
