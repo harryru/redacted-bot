@@ -29,12 +29,12 @@ const permissionCheck = (args,command) => {
     var validChannel = false;
     var validUser = false;
     PERMISSIONS[command].channels.map(channel => {
-        if( args.member.hasPermission('ADMINISTRATOR')|| channel === 'ANY_CHANNEL' ||channel === args.channel.id || args.member.roles.cache.has(config.ADMIN_ROLE_ID)){
+        if( args.member.permissions.has('ADMINISTRATOR')|| channel === 'ANY_CHANNEL' ||channel === args.channel.id || args.member.roles.cache.has(config.ADMIN_ROLE_ID)){
             validChannel = true;
         }
     })
     PERMISSIONS[command].user.map(userRole => {
-        if ( args.member.hasPermission('ADMINISTRATOR') || userRole === 'EVERYONE' || args.member.roles.cache.has(userRole) || args.member.roles.cache.has(config.ADMIN_ROLE_ID)) {
+        if ( args.member.permissions.has('ADMINISTRATOR') || userRole === 'EVERYONE' || args.member.roles.cache.has(userRole) || args.member.roles.cache.has(config.ADMIN_ROLE_ID)) {
             validUser = true;
         }
     })
