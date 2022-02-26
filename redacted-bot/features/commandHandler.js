@@ -10,13 +10,8 @@ const commandParser = (args,command) => {
     }
     console.log(command,command[0].toLowerCase(),(methods[command[0].toLowerCase()] === undefined));
     console.log(typeof methods[command[0].toLowerCase()]);
-    if ((typeof methods[command[0].toLowerCase()] === undefined)) {
-        methods['unknownCommand'](args,command);
-        return;
-    }
-    else if ((typeof methods[command[0].toLowerCase()] != undefined)) {
+    if (!(typeof methods[command[0].toLowerCase()] === undefined)) {
         cmd = command.slice();
-        
         if (permissionCheck(args,command[0].toLowerCase())) {
             cmd.splice(0, 1);
             methods[command[0].toLowerCase()](args,cmd);
@@ -24,6 +19,9 @@ const commandParser = (args,command) => {
         else {
             return;
         }
+    }else {
+        methods['unknownCommand'](args,command);
+        return;
     }
 }
 
