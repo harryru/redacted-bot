@@ -11,7 +11,7 @@ const constructEmbed = (args) => {
         .setDescription('Some description here')
         .setThumbnail('https://i.imgur.com/AfFp7pu.png')
         .addFields(
-            { name: 'Regular field title', value: 'Some value here' },
+            { name: '', value: args.content },
             { name: '\u200B', value: '\u200B' },
             { name: 'Inline field title', value: 'Some value here', inline: true },
             { name: 'Inline field title', value: 'Some value here', inline: true },
