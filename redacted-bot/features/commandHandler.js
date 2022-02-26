@@ -8,7 +8,7 @@ const commandParser = (args,command) => {
         methods['commands'](args,command);
         return;
     }
-    console.log(command,command[0].toLowerCase());
+    console.log(command,command[0].toLowerCase(),(methods[command[0].toLowerCase()] === undefined));
     if ((typeof methods[command[0].toLowerCase()] === undefined)) {
         methods['unknownCommand'](args,command);
         return;
