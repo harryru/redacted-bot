@@ -92,15 +92,15 @@ async function purgeCommand (args,command){
     if (checkValidSyntax(args, command, 1)) {
         
         /* Retrieve bot command and create deleteEmbed + deleted command message*/
-        messages = await args.channel.messages.fetch({ limit: 1 })
-        description = buildDescription(messages);
-        deleteMessage = deleteEmbed(args,description);
+        let messages = await args.channel.messages.fetch({ limit: 1 })
+        let description = buildDescription(messages);
+        let deleteMessage = deleteEmbed(args,description);
         await args.channel.bulkDelete(parseInt(1));
 
         /* Retrive number of specified messages and create purge embed */
         messages = await args.channel.messages.fetch({ limit: parseInt(command[0])});
         description = buildDescription(messages);
-        purge = purgeEmbed(args,parseInt(command[0]),description);
+        let purge = purgeEmbed(args,parseInt(command[0]),description);
 
         args.channel.bulkDelete(parseInt(command[0]));
         const guild = args.guild;

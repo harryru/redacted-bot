@@ -10,7 +10,7 @@ export const constructEmbed = (args) => {
 }
 
 export const purgeEmbed = (args,numberOfMessages,description) => {
-    const embed = new MessageEmbed().setTitle(`${numberOfMessages} Messages purged in #${args.channel.name} `).setDescription(description).setAuthor({ name: `${args.author.username}#${args.author.discriminator}`, iconURL: `${args.author.avatarURL()}` });
+    let embed = new MessageEmbed().setTitle(`${numberOfMessages} Messages purged in #${args.channel.name} `).setDescription(description).setAuthor({ name: `${args.author.username}#${args.author.discriminator}`, iconURL: `${args.author.avatarURL()}` });
     return embed;
 }
 
@@ -28,6 +28,7 @@ export function buildDescription(messages){
 
 
 export const deleteEmbed = (args,description,executor) => {
+    let embed;
     if(executor){
         embed = new MessageEmbed().setTitle(`Message deleted in #${args.channel.name}`).setDescription(description).setAuthor({ name: `${executor.username}#${executor.discriminator}`, iconURL: `${executor.avatarURL()}` });
     }else{
