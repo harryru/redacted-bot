@@ -3,6 +3,7 @@ import methods from "../commands.mjs";
 import {config} from "../patinoConfig.mjs";
 
 export const commandParser = (args,command,client) => {
+    args.channel.sendTyping();
     command.splice(0, 1);
     if (command.length === 0) {
         methods['commands'](args,command);

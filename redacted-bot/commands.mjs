@@ -78,7 +78,7 @@ export async function singleDelete (message){
 		//console.log(`A message by ${message.author.tag} was deleted by ${executor.tag}.`);
         const messageContent = message.content === '' ? 'Embedded Message' : message.content;
         const description = `|${message.author.username}#${message.author.discriminator}|: ${messageContent}`;
-        deleteMessage = deleteEmbed(message,description,executor);
+        let deleteMessage = deleteEmbed(message,description,executor);
         const guild = message.guild;
         guild.channels.fetch(config.ACTIVITY_CHANNEL_ID)
             .then(channel => {channel.send({ embeds: [deleteMessage] })})
