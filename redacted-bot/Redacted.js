@@ -1,9 +1,11 @@
-const {commandParser} = require('./features/commandHandler')
-const {updateMemberCount} = require('./features/updateMemberCount');
-const {autoRole} = require('./features/autoRole');
+import {commandParser} from './features/commandHandler.mjs'
+import {updateMemberCount} from './features/updateMemberCount.mjs';
+import {autoRole} from './features/autoRole.mjs';
+import {singleDelete} from './commands.mjs';
 
-const Discord = require("discord.js");
-const config = require("./config.json");
+import Discord from 'discord.js';
+import {config} from "./patinoConfig.mjs";
+
 const client = new Discord.Client({
     intents: [
         Discord.Intents.FLAGS.GUILDS,
@@ -23,13 +25,13 @@ const client = new Discord.Client({
 });
 
 client.on('ready', () => {
-    updateMemberCount(client);
+    //updateMemberCount(client);
     console.log(`Launched as a bot: ${client.user.tag}!`);
 });
 
 client.on('guildMemberAdd', member => {
     if (client.guilds.cache.get(config.SERVER_ID)) {
-        updateMemberCount(client);
+        //updateMemberCount(client);
         autoRole(member);
         return;
     }
@@ -37,15 +39,20 @@ client.on('guildMemberAdd', member => {
 
 client.on('guildMemberRemove', member => {
     if (client.guilds.cache.get(config.SERVER_ID)) {
-        updateMemberCount(client);
+        //updateMemberCount(client);
         return;
     }
 });
 
 client.on('messageCreate', message => {
     if (!(message.author.id === config.BOT_ID) && message.content.startsWith(config.PREFIX)) {
-        commandParser(message, message.content.split(" "));
+        commandParser(message, message.content.split(" "),client);
     }
 });
+
+client.on('messageDelete', message => {
+        singleDelete(message);
+  });
+  
 
 client.login(config.BOT_TOKEN);

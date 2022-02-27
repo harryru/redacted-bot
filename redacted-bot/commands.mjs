@@ -1,0 +1,141 @@
+/* 
+ * File Containing Command Functions....
+*/
+import {config} from "./patinoConfig.mjs";
+import {constructEmbed, purgeEmbed, deleteEmbed, buildDescription} from "./features/MessageEmbeds.mjs";
+import {imgSearch} from "./features/imageSearch.mjs";
+
+const listCommands = (args, command) => {
+    if (checkValidSyntax(args, command, 0)) {
+        args.channel.send("!r <command> -- commands, invite, membercount, avatar");
+        reactComplete(args);
+    }
+}
+
+const inviteCommand = (args, command) => {
+    if (checkValidSyntax(args, command, 0)) {
+        args.channel.send(`**Discord** - https://discord.gg/${config.INVITE_LINK}`);
+        reactComplete(args);
+    }
+}
+
+const memberCountCommand = (args, command) => {
+    if (checkValidSyntax(args, command, 0)) {
+        const count = args.guild.memberCount;
+        args.channel.send(`Member Count ${count}`);
+        reactComplete(args);
+    }
+}
+
+const avatarCommand = (args, command) => {
+    if (checkValidSyntax(args, command, 1)) {
+        if (command.length === 0) {
+            //embed this whole pic
+            args.channel.send(args.author.avatarURL());
+        }
+        else {
+            //solve for avatar of given tag
+        }
+        reactComplete(args);
+    }
+}
+
+const postCommand = (args,command) => {
+    if (checkValidSyntax(args, command, 'Unlimited')) {
+            constructEmbed(args);
+            reactComplete(args);
+        
+    };
+}
+
+const checkValidSyntax = (args, command, parameters) => {
+    if(parameters === 'Unlimited'){
+        return true;
+    }
+    else if (command.length > parameters) {
+        args.channel.send("Invalid syntax.");
+        reactFail(args);
+        return false;
+    }
+    return true;
+}
+
+const unknownCommand = (args) =>{
+    reactFail(args);
+    args.channel.send('Unkown command.');
+}
+
+export async function singleDelete (message){
+	if (!message.guild) return;
+	const fetchedLogs = await message.guild.fetchAuditLogs({
+		limit: 1,
+		type: 'MESSAGE_DELETE',
+	});
+	const deletionLog = fetchedLogs.entries.first();
+	if (!deletionLog) return console.log(`A message by ${message.author.tag} was deleted, but no relevant audit logs were found.`);
+	const { executor, target } = deletionLog;
+	if (target.id === message.author.id) {
+		//console.log(`A message by ${message.author.tag} was deleted by ${executor.tag}.`);
+        const messageContent = message.content === '' ? 'Embedded Message' : message.content;
+        const description = `|${message.author.username}#${message.author.discriminator}|: ${messageContent}`;
+        deleteMessage = deleteEmbed(message,description,executor);
+        const guild = message.guild;
+        guild.channels.fetch(config.ACTIVITY_CHANNEL_ID)
+            .then(channel => {channel.send({ embeds: [deleteMessage] })})
+            .catch(console.error);
+	} else {
+		console.log(`A message by ${message.author.tag} was deleted, but we don't know by who.`);
+	}
+}
+
+async function purgeCommand (args,command){
+    if (checkValidSyntax(args, command, 1)) {
+        
+        /* Retrieve bot command and create deleteEmbed + deleted command message*/
+        messages = await args.channel.messages.fetch({ limit: 1 })
+        description = buildDescription(messages);
+        deleteMessage = deleteEmbed(args,description);
+        await args.channel.bulkDelete(parseInt(1));
+
+        /* Retrive number of specified messages and create purge embed */
+        messages = await args.channel.messages.fetch({ limit: parseInt(command[0])});
+        description = buildDescription(messages);
+        purge = purgeEmbed(args,parseInt(command[0]),description);
+
+        args.channel.bulkDelete(parseInt(command[0]));
+        const guild = args.guild;
+        guild.channels.fetch(config.ACTIVITY_CHANNEL_ID)
+            .then(channel => {channel.send({ embeds: [deleteMessage,purge] })})
+            .catch(console.error);
+    }  
+}
+
+const imageCommand = (args,command) => {
+    if (checkValidSyntax(args, command, 0)) {
+        imgSearch(args,'test')
+        reactComplete(args);
+}; 
+}
+
+const reactComplete = (args) => {
+    args.react("✅");
+}
+
+export const reactFail = (args) => {
+    args.react("❌");
+}
+
+const methods ={
+    commands: listCommands,
+    invite: inviteCommand,
+    membercount: memberCountCommand,
+    avatar: avatarCommand,
+    post: postCommand,
+    unknownCommand: unknownCommand,
+    reactFail: reactFail,
+    purge: purgeCommand,
+    singleDelete: singleDelete,
+    image: imageCommand
+}
+
+export default methods;

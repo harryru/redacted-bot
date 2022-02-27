@@ -1,0 +1,23 @@
+{
+    "name": "discordbot",
+    "version": "1.0.0",
+    "main": "Redacted.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node Redacted.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "cheerio": "^1.0.0-rc.10",
+        "discord": "^0.8.2",
+        "discord.js": "^13.0.1",
+        "got": "^12.0.1",
+        "node-fetch": "^3.0.0"
+    },
+    "type": "module",
+    "devDependencies": {
+        "babel-plugin-import": "^1.13.3"
+    }
+}
