@@ -46,7 +46,10 @@ client.on('guildMemberRemove', member => {
 
 client.on('messageCreate', message => {
     if (!(message.author.id === config.BOT_ID) && message.content.startsWith(config.PREFIX)) {
-        commandParser(message, message.content.split(" "),client);
+        args = message.content.split("");
+        if (args[0] === "!r") {
+            commandParser(message, message.content.split(" "),client);
+        }
     }
 });
 
