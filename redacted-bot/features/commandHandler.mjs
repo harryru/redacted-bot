@@ -1,6 +1,6 @@
 import { reactFail } from "../commands.mjs";
 import methods from "../commands.mjs";
-import {config} from "../patinoConfig.mjs";
+import {config} from "../config.mjs";
 
 export const commandParser = (args,command,client) => {
     args.channel.sendTyping();
@@ -70,8 +70,8 @@ const PERMISSIONS = {
         user: [config.ADMIN_ROLE_ID]
     },
     image:{
-        channels: [config.BOT_CHANNEL_ID],
-        user: [config.ADMIN_ROLE_ID]
+        channels: ['ANY_CHANNEL',config.BOT_CHANNEL_ID],
+        user: ['EVERYONE',config.ADMIN_ROLE_ID]
     }
     
 }

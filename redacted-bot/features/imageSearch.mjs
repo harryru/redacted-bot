@@ -1,4 +1,4 @@
-import { config } from "../patinoConfig.mjs";
+import { config } from "../config.mjs";
 import cheerio from 'cheerio';
 import puppeteer from 'puppeteer';
 
@@ -25,4 +25,6 @@ async function extractLinks (url){
   return links;
 
 };
+
+
 

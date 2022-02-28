@@ -1,5 +1,5 @@
 import {MessageEmbed} from 'discord.js';
-import {config} from '../patinoConfig.mjs';
+import {config} from '../config.mjs';
 
 export const constructEmbed = (args) => {
 

@@ -1,4 +1,4 @@
-import {config} from "../patinoConfig.mjs";
+import {config} from "../config.mjs";
 
 export const updateMemberCount = (client) => {
     const guild = client.guilds.cache.get(config.SERVER_ID);

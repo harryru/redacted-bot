@@ -1,7 +1,7 @@
 /* 
  * File Containing Command Functions....
 */
-import {config} from "./patinoConfig.mjs";
+import {config} from "./config.mjs";
 import {constructEmbed, purgeEmbed, deleteEmbed, buildDescription} from "./features/MessageEmbeds.mjs";
 import {imgSearch} from "./features/imageSearch.mjs";
 

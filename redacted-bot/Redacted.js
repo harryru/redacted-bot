@@ -4,7 +4,7 @@ import {autoRole} from './features/autoRole.mjs';
 import {singleDelete} from './commands.mjs';
 
 import Discord from 'discord.js';
-import {config} from "./patinoConfig.mjs";
+import {config} from "./config.mjs";
 
 const client = new Discord.Client({
     intents: [
