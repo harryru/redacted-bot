@@ -1,9 +1,9 @@
 /* 
  * File Containing Command Functions....
 */
-import {config} from "./config.mjs";
-import {constructEmbed, purgeEmbed, deleteEmbed, buildDescription} from "./features/MessageEmbeds.mjs";
-import {imgSearch} from "./features/imageSearch.mjs";
+import { config } from "./config.mjs";
+import { constructEmbed, purgeEmbed, deleteEmbed, buildDescription } from "./features/MessageEmbeds.mjs";
+import { imgSearch } from "./features/imageSearch.mjs";
 
 const listCommands = (args, command) => {
     if (checkValidSyntax(args, command, 0)) {
@@ -40,16 +40,16 @@ const avatarCommand = (args, command) => {
     }
 }
 
-const postCommand = (args,command) => {
+const postCommand = (args, command) => {
     if (checkValidSyntax(args, command, 'Unlimited')) {
-            constructEmbed(args);
-            reactComplete(args);
-        
+        constructEmbed(args);
+        reactComplete(args);
+
     };
 }
 
 const checkValidSyntax = (args, command, parameters) => {
-    if(parameters === 'Unlimited'){
+    if (parameters === 'Unlimited') {
         return true;
     }
     else if (command.length > parameters) {
@@ -60,61 +60,59 @@ const checkValidSyntax = (args, command, parameters) => {
     return true;
 }
 
-const unknownCommand = (args) =>{
+const unknownCommand = (args) => {
     reactFail(args);
     args.channel.send('Unkown command.');
 }
 
-export async function singleDelete (message){
-	if (!message.guild) return;
-	const fetchedLogs = await message.guild.fetchAuditLogs({
-		limit: 1,
-		type: 'MESSAGE_DELETE',
-	});
-	const deletionLog = fetchedLogs.entries.first();
-	if (!deletionLog) return console.log(`A message by ${message.author.tag} was deleted, but no relevant audit logs were found.`);
-	const { executor, target } = deletionLog;
-	if (target.id === message.author.id) {
-		//console.log(`A message by ${message.author.tag} was deleted by ${executor.tag}.`);
-        const messageContent = message.content === '' ? 'Embedded Message' : message.content;
-        const description = `|${message.author.username}#${message.author.discriminator}|: ${messageContent}`;
-        let deleteMessage = deleteEmbed(message,description,executor);
-        const guild = message.guild;
-        guild.channels.fetch(config.ACTIVITY_CHANNEL_ID)
-            .then(channel => {channel.send({ embeds: [deleteMessage] })})
-            .catch(console.error);
-	} else {
-		console.log(`A message by ${message.author.tag} was deleted, but we don't know by who.`);
-	}
+export async function singleDelete(message) {
+    if (!message.guild) return;
+    const fetchedLogs = await message.guild.fetchAuditLogs({
+        limit: 1,
+        type: 'MESSAGE_DELETE',
+    });
+    const deletionLog = fetchedLogs.entries.first();
+    if (!deletionLog) return console.log(`A message by ${message.author.tag} was deleted, but no relevant audit logs were found.`);
+    const { executor, target } = deletionLog;
+    let deleter;
+    deleter = (target.id === message.author.id) ? executor : message.author;
+
+    const messageContent = message.content === '' ? 'Embedded Message' : message.content;
+    const description = `|${message.author.username}#${message.author.discriminator}|: ${messageContent}`;
+    let deleteMessage = deleteEmbed(message, description, deleter);
+    const guild = message.guild;
+    guild.channels.fetch(config.ACTIVITY_CHANNEL_ID)
+        .then(channel => { channel.send({ embeds: [deleteMessage] }) })
+        .catch(console.error);
 }
 
-async function purgeCommand (args,command){
+async function purgeCommand(args, command) {
     if (checkValidSyntax(args, command, 1)) {
-        
+
         /* Retrieve bot command and create deleteEmbed + deleted command message*/
         let messages = await args.channel.messages.fetch({ limit: 1 })
         let description = buildDescription(messages);
-        let deleteMessage = deleteEmbed(args,description);
+        let deleteMessage = deleteEmbed(args, description);
         await args.channel.bulkDelete(parseInt(1));
 
         /* Retrive number of specified messages and create purge embed */
-        messages = await args.channel.messages.fetch({ limit: parseInt(command[0])});
+        messages = await args.channel.messages.fetch({ limit: parseInt(command[0]) });
         description = buildDescription(messages);
-        let purge = purgeEmbed(args,parseInt(command[0]),description);
+        let purge = purgeEmbed(args, parseInt(command[0]), description);
 
         args.channel.bulkDelete(parseInt(command[0]));
         const guild = args.guild;
         guild.channels.fetch(config.ACTIVITY_CHANNEL_ID)
-            .then(channel => {channel.send({ embeds: [deleteMessage,purge] })})
+            .then(channel => { channel.send({ embeds: [deleteMessage, purge] }) })
             .catch(console.error);
-    }  
+    }
 }
 
-const imageCommand = (args,command) => {
+const imageCommand = (args, command) => {
     if (checkValidSyntax(args, command, 1)) {
-        imgSearch(args,command[0]);
+        imgSearch(args, command[0]);
         reactComplete(args);
-}; 
+    };
 }
 
 const reactComplete = (args) => {
@@ -125,7 +123,7 @@ export const reactFail = (args) => {
     args.react("❌");
 }
 
-const methods ={
+const methods = {
     commands: listCommands,
     invite: inviteCommand,
     membercount: memberCountCommand,
