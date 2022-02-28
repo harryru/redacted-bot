@@ -2,7 +2,7 @@
 Private Discord Bot
 
 
-dependencies:
+## dependencies:
 - node.js
 - npm update
 - discord.js
