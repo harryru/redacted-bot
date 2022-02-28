@@ -70,8 +70,8 @@ const PERMISSIONS = {
         user: [config.ADMIN_ROLE_ID]
     },
     image:{
-        channels: ['ANY_CHANNEL',config.BOT_CHANNEL_ID],
-        user: ['EVERYONE',config.ADMIN_ROLE_ID]
+        channels: [config.BOT_CHANNEL_ID],
+        user: ['EVERYONE', config.ADMIN_ROLE_ID]
     }
     
 }
