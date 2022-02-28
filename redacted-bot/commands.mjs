@@ -7,7 +7,7 @@ import { imgSearch } from "./features/imageSearch.mjs";
 
 const listCommands = (args, command) => {
     if (checkValidSyntax(args, command, 0)) {
-        args.channel.send("!r <command> -- commands, invite, membercount, post <content>, purge <#>, avatar");
+        args.channel.send("!r <command> -- commands, invite, membercount, post <content>, purge <#>, image, avatar");
         reactComplete(args);
     }
 }
