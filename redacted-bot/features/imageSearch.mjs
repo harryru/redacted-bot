@@ -1,34 +1,28 @@
 import { config } from "../patinoConfig.mjs";
 import cheerio from 'cheerio';
-import axios from 'axios';
+import puppeteer from 'puppeteer';
 
 
 
 export const imgSearch = async (args, imgDesc) => {
-  let url = "https://results.dogpile.com/serp?qc=images&q=dua+lipa"
+  let url = `https://results.dogpile.com/serp?qc=images&q=${imgDesc}`;
+
   let links = await extractLinks(url);
-  //console.log(links)
+  args.channel.send(links[Math.floor(Math.random() * links.length)]);
 
 }
 
-const extractLinks = async (url) => {
+async function extractLinks (url){
 
-  const { data } = await axios.get(url, {
-    headers: {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36",
-    },
-  });
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto(url);
 
-  try {
-    const $ = cheerio.load(data);
-    const links = Array.from($('a')).map((a) => {
-        return $(a).attr('href')
-    });
-    console.log(links);
+  const links = await page.evaluate(()=>{
+    return Array.from(document.querySelectorAll('.image img')).map(el=>el.src)
+  })
+  
+  return links;
 
-    // do something else here with these links, such as writing to a file or saving them to your database
-  } catch (error) {
-    console.log(error.response.body);
-  }
 };
 

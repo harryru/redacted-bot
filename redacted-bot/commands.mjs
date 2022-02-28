@@ -111,8 +111,8 @@ async function purgeCommand (args,command){
 }
 
 const imageCommand = (args,command) => {
-    if (checkValidSyntax(args, command, 0)) {
-        imgSearch(args,'test')
+    if (checkValidSyntax(args, command, 1)) {
+        imgSearch(args,command[0]);
         reactComplete(args);
 }; 
 }
