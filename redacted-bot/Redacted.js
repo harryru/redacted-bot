@@ -25,13 +25,13 @@ const client = new Discord.Client({
 });
 
 client.on('ready', () => {
-    //updateMemberCount(client);
+    updateMemberCount(client);
     console.log(`Launched as a bot: ${client.user.tag}!`);
 });
 
 client.on('guildMemberAdd', member => {
     if (client.guilds.cache.get(config.SERVER_ID)) {
-        //updateMemberCount(client);
+        updateMemberCount(client);
         autoRole(member);
         return;
     }
@@ -39,7 +39,7 @@ client.on('guildMemberAdd', member => {
 
 client.on('guildMemberRemove', member => {
     if (client.guilds.cache.get(config.SERVER_ID)) {
-        //updateMemberCount(client);
+        updateMemberCount(client);
         return;
     }
 });
