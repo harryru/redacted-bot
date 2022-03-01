@@ -16,15 +16,17 @@ export const purgeEmbed = (args,numberOfMessages,description) => {
 }
 
 export function buildDescription(messages){
-    let descriptionBuilder = ''
+    let descriptionBuilder = '';
+    let messageCount = 0;
     messages.map((message) => {
+            messageCount = messageCount + 1;
             if(message.author.id === config.BOT_ID){
                 descriptionBuilder = descriptionBuilder.concat('',`|${message.author.username}#${message.author.discriminator}|: Embedded Message\n`);
             }else{
                 descriptionBuilder = descriptionBuilder.concat('',`|${message.author.username}#${message.author.discriminator}|: ${message.content}\n`);
             }
     })
-    return descriptionBuilder;
+    return {description: descriptionBuilder, number: messageCount};
 }
 
 

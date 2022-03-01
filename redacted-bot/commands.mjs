@@ -87,18 +87,24 @@ export async function singleDelete(message) {
 }
 
 async function purgeCommand(args, command) {
+
+
     if (checkValidSyntax(args, command, 1)) {
 
+        if(command[0] > 100){
+            args.channel.send("Attempt to purge failed. Maximum allowed: 100.");
+            return;
+        }
         /* Retrieve bot command and create deleteEmbed + deleted command message*/
         let messages = await args.channel.messages.fetch({ limit: 1 })
-        let description = buildDescription(messages);
-        let deleteMessage = deleteEmbed(args, description);
+        let response = buildDescription(messages);
+        let deleteMessage = deleteEmbed(args, response.description);
         await args.channel.bulkDelete(parseInt(1));
 
         /* Retrive number of specified messages and create purge embed */
         messages = await args.channel.messages.fetch({ limit: parseInt(command[0]) });
-        description = buildDescription(messages);
-        let purge = purgeEmbed(args, parseInt(command[0]), description);
+        response = buildDescription(messages);
+        let purge = purgeEmbed(args, response.number, response.description);
 
         args.channel.bulkDelete(parseInt(command[0]));
         const guild = args.guild;

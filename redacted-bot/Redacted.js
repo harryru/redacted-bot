@@ -54,7 +54,9 @@ client.on('messageCreate', message => {
 });
 
 client.on('messageDelete', message => {
+    if (!message.author.id === config.BOT_ID){
         singleDelete(message);
+    }    
   });
   
 
