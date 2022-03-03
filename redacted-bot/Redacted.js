@@ -1,5 +1,5 @@
 import {commandParser} from './features/commandHandler.mjs'
-import {updateMemberCount} from './features/updateMemberCount.mjs';
+import {updateUserCount} from './features/updateUserCount.mjs';
 import {autoRole} from './features/autoRole.mjs';
 import {singleDelete} from './commands.mjs';
 
@@ -25,13 +25,13 @@ const client = new Discord.Client({
 });
 
 client.on('ready', () => {
-    updateMemberCount(client);
+    updateUserCount(client);
     console.log(`Launched as a bot: ${client.user.tag}!`);
 });
 
 client.on('guildMemberAdd', member => {
     if (client.guilds.cache.get(config.SERVER_ID)) {
-        updateMemberCount(client);
+        updateUserCount(client);
         autoRole(member);
         return;
     }
@@ -39,7 +39,7 @@ client.on('guildMemberAdd', member => {
 
 client.on('guildMemberRemove', member => {
     if (client.guilds.cache.get(config.SERVER_ID)) {
-        updateMemberCount(client);
+        updateUserCount(client);
         return;
     }
 });
