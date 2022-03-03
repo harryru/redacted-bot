@@ -25,6 +25,7 @@ const client = new Discord.Client({
 });
 
 client.on('ready', () => {
+    client.user.setActivity(config.PREFIX, { type: 'LISTENING' });
     updateUserCount(client);
     console.log(`Launched as a bot: ${client.user.tag}!`);
 });
@@ -58,6 +59,5 @@ client.on('messageDelete', message => {
         singleDelete(message);
     }    
   });
-  
 
 client.login(config.BOT_TOKEN);

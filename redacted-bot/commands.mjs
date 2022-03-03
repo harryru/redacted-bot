@@ -6,28 +6,35 @@ import { constructEmbed, purgeEmbed, deleteEmbed, buildDescription } from "./fea
 import { imgSearch } from "./features/imageSearch.mjs";
 
 const listCommands = (args, command) => {
+
     if (checkValidSyntax(args, command, 0)) {
         args.channel.send("!r <command> -- commands, invite, membercount, post <content>, purge <#>, image, avatar");
         reactComplete(args);
     }
+
 }
 
 const inviteCommand = (args, command) => {
+
     if (checkValidSyntax(args, command, 0)) {
         args.channel.send(`**Discord** - https://discord.gg/${config.INVITE_LINK}`);
         reactComplete(args);
     }
+
 }
 
 const memberCountCommand = (args, command) => {
+
     if (checkValidSyntax(args, command, 0)) {
         const count = args.guild.memberCount;
         args.channel.send(`Member Count ${count}`);
         reactComplete(args);
     }
+
 }
 
 const avatarCommand = (args, command) => {
+
     if (checkValidSyntax(args, command, 1)) {
         if (command.length === 0) {
             //embed this whole pic
@@ -38,34 +45,43 @@ const avatarCommand = (args, command) => {
         }
         reactComplete(args);
     }
+
 }
 
 const postCommand = (args, command) => {
+
     if (checkValidSyntax(args, command, 'Unlimited')) {
         constructEmbed(args);
         reactComplete(args);
-
     };
+
 }
 
 const checkValidSyntax = (args, command, parameters) => {
+
     if (parameters === 'Unlimited') {
         return true;
     }
+
     else if (command.length > parameters) {
         args.channel.send("Invalid syntax.");
         reactFail(args);
         return false;
     }
+
     return true;
+
 }
 
 const unknownCommand = (args) => {
+
     reactFail(args);
     args.channel.send('Unkown command.');
+
 }
 
 export async function singleDelete(message) {
+
     if (!message.guild) return;
     const fetchedLogs = await message.guild.fetchAuditLogs({
         limit: 1,
@@ -76,7 +92,6 @@ export async function singleDelete(message) {
     const { executor, target } = deletionLog;
     let deleter;
     deleter = (target.id === message.author.id) ? executor : message.author;
-
     const messageContent = message.content === '' ? 'Embedded Message' : message.content;
     const description = `|${message.author.username}#${message.author.discriminator}|: ${messageContent}`;
     let deleteMessage = deleteEmbed(message, description, deleter);
@@ -84,49 +99,52 @@ export async function singleDelete(message) {
     guild.channels.fetch(config.ACTIVITY_CHANNEL_ID)
         .then(channel => { channel.send({ embeds: [deleteMessage] }) })
         .catch(console.error);
+    
 }
 
 async function purgeCommand(args, command) {
 
-
     if (checkValidSyntax(args, command, 1)) {
-
         if(command[0] > 100){
             args.channel.send("Attempt to purge failed. Maximum allowed: 100.");
             return;
         }
-        /* Retrieve bot command and create deleteEmbed + deleted command message*/
+
         let messages = await args.channel.messages.fetch({ limit: 1 })
         let response = buildDescription(messages);
         let deleteMessage = deleteEmbed(args, response.description);
         await args.channel.bulkDelete(parseInt(1));
-
-        /* Retrive number of specified messages and create purge embed */
         messages = await args.channel.messages.fetch({ limit: parseInt(command[0]) });
         response = buildDescription(messages);
         let purge = purgeEmbed(args, response.number, response.description);
-
         args.channel.bulkDelete(parseInt(command[0]));
         const guild = args.guild;
         guild.channels.fetch(config.ACTIVITY_CHANNEL_ID)
             .then(channel => { channel.send({ embeds: [deleteMessage, purge] }) })
             .catch(console.error);
     }
+
 }
 
 const imageCommand = (args, command) => {
+
     if (checkValidSyntax(args, command, 1)) {
         imgSearch(args, command[0]);
         reactComplete(args);
     };
+
 }
 
 const reactComplete = (args) => {
+
     args.react("✅");
+
 }
 
 export const reactFail = (args) => {
+
     args.react("❌");
+
 }
 
 const methods = {

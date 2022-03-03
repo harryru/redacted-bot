@@ -2,9 +2,8 @@ import { config } from "../config.mjs";
 import cheerio from 'cheerio';
 import puppeteer from 'puppeteer';
 
-
-
 export const imgSearch = async (args, imgDesc) => {
+  
   let url = `https://results.dogpile.com/serp?qc=images&q=${imgDesc}`;
 
   let links = await extractLinks(url);
