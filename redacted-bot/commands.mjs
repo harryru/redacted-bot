@@ -2,13 +2,13 @@
  * File Containing Command Functions....
 */
 import { config } from "./config.mjs";
-import { constructEmbed, purgeEmbed, deleteEmbed, buildDescription } from "./features/MessageEmbeds.mjs";
+import { constructEmbed, roleInfoEmbed, purgeEmbed, deleteEmbed, buildDescription } from "./features/MessageEmbeds.mjs";
 import { imgSearch } from "./features/imageSearch.mjs";
 
 const listCommands = (args, command) => {
 
     if (checkValidSyntax(args, command, 0)) {
-        args.channel.send("!r <command> -- commands, invite, membercount, post <content>, purge <#>, image, avatar");
+        args.channel.send("!r <command> -- commands, invite, usercount, roleinfo, post <content>, purge <#>, image, avatar");
         reactComplete(args);
     }
 
@@ -28,6 +28,15 @@ const userCountCommand = (args, command) => {
     if (checkValidSyntax(args, command, 0)) {
         const count = args.guild.memberCount;
         args.channel.send(`User Count ${count}`);
+        reactComplete(args);
+    }
+
+}
+
+const roleInfoCommand = (args, command) => {
+
+    if (checkValidSyntax(args, command, 0)) {
+        roleInfoEmbed(args);
         reactComplete(args);
     }
 
@@ -97,28 +106,6 @@ const unknownCommand = (args) => {
 
 }
 
-export async function singleDelete(message) {
-
-    if (!message.guild) return;
-    const fetchedLogs = await message.guild.fetchAuditLogs({
-        limit: 1,
-        type: 'MESSAGE_DELETE',
-    });
-    const deletionLog = fetchedLogs.entries.first();
-    if (!deletionLog) return console.log(`A message by ${message.author.tag} was deleted, but no relevant audit logs were found.`);
-    const { executor, target } = deletionLog;
-    let deleter;
-    deleter = (target.id === message.author.id) ? executor : message.author;
-    const messageContent = message.content === '' ? 'Embedded Message' : message.content;
-    const description = `|${message.author.username}#${message.author.discriminator}|: ${messageContent}`;
-    let deleteMessage = deleteEmbed(message, description, deleter);
-    const guild = message.guild;
-    guild.channels.fetch(config.ACTIVITY_CHANNEL_ID)
-        .then(channel => { channel.send({ embeds: [deleteMessage] }) })
-        .catch(console.error);
-    
-}
-
 const reactComplete = (args) => {
 
     args.react("✅");
@@ -147,17 +134,40 @@ const checkValidSyntax = (args, command, parameters) => {
 
 }
 
+export async function singleDelete(message) {
+
+    if (!message.guild) return;
+    const fetchedLogs = await message.guild.fetchAuditLogs({
+        limit: 1,
+        type: 'MESSAGE_DELETE',
+    });
+    const deletionLog = fetchedLogs.entries.first();
+    if (!deletionLog) return console.log(`A message by ${message.author.tag} was deleted, but no relevant audit logs were found.`);
+    const { executor, target } = deletionLog;
+    let deleter;
+    deleter = (target.id === message.author.id) ? executor : message.author;
+    const messageContent = message.content === '' ? 'Embedded Message' : message.content;
+    const description = `|${message.author.username}#${message.author.discriminator}|: ${messageContent}`;
+    let deleteMessage = deleteEmbed(message, description, deleter);
+    const guild = message.guild;
+    guild.channels.fetch(config.ACTIVITY_CHANNEL_ID)
+        .then(channel => { channel.send({ embeds: [deleteMessage] }) })
+        .catch(console.error);
+    
+}
+
 const methods = {
     commands: listCommands,
     invite: inviteCommand,
-    membercount: memberCountCommand,
-    avatar: avatarCommand,
+    usercount: userCountCommand,
+    roleinfo: roleInfoCommand,
     post: postCommand,
-    unknownCommand: unknownCommand,
-    reactFail: reactFail,
     purge: purgeCommand,
+    image: imageCommand,
+    avatar: avatarCommand,
+    reactFail: reactFail,
     singleDelete: singleDelete,
-    image: imageCommand
+    unknownCommand: unknownCommand
 }
 
 export default methods;

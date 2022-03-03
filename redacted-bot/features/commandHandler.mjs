@@ -60,32 +60,36 @@ const permissionCheck = (args,command) => {
 }
 
 const PERMISSIONS = {
+    commands: {
+        channels: [config.BOT_CHANNEL_ID],
+        user: ['EVERYONE', config.ADMIN_ROLE_ID]
+    },
     invite: {
         channels: [config.BOT_CHANNEL_ID],
         user: ['EVERYONE', config.ADMIN_ROLE_ID]
     },
-    commands:{
+    usercount: {
         channels: [config.BOT_CHANNEL_ID],
         user: ['EVERYONE', config.ADMIN_ROLE_ID]
     },
-    avatar:{
+    roleinfo: {
+        channels: [config.BOT_CHANNEL_ID],
+        user: [config.ADMIN_ROLE_ID]
+    },
+    post: {
+        channels: [config.BOT_CHANNEL_ID],
+        user: [config.ADMIN_ROLE_ID]
+    },
+    purge: {
+        channels: [config.BOT_CHANNEL_ID],
+        user: [config.ADMIN_ROLE_ID]
+    },
+    image: {
+        channels: [config.BOT_CHANNEL_ID],
+        user: [config.ADMIN_ROLE_ID]
+    },
+    avatar: {
         channels: [config.BOT_CHANNEL_ID],
         user: ['EVERYONE', config.ADMIN_ROLE_ID]
-    },
-    membercount:{
-        channels: [config.BOT_CHANNEL_ID],
-        user: ['EVERYONE', config.ADMIN_ROLE_ID]
-    },
-    post:{
-        channels: [config.BOT_CHANNEL_ID],
-        user: [config.ADMIN_ROLE_ID]
-    },
-    purge:{
-        channels: [config.BOT_CHANNEL_ID],
-        user: [config.ADMIN_ROLE_ID]
-    },
-    image:{
-        channels: [config.BOT_CHANNEL_ID],
-        user: [config.ADMIN_ROLE_ID]
     }
 }

@@ -8,7 +8,22 @@ export const constructEmbed = (args) => {
 
 }
 
-export const purgeEmbed = (args,numberOfMessages,description) => {
+export const roleInfoEmbed = (args) => {
+
+    let rolemap = args.guild.roles.cache
+        .sort((a, b) => b.position - a.position)
+        .map(r => r)
+        .join(", ");
+
+    var roleInfoList = "";
+    args.guild.roles.cache.forEach(role => roleInfoList = roleInfoList + role.toString() + " - ID: " + role.id + " - Users: " + role.members.size + "\n");
+
+    const testEmbed = new MessageEmbed().setTitle(`Roles - IDs - Users`).setDescription(roleInfoList).setAuthor({ name: `${args.author.username}#${args.author.discriminator}`, iconURL: `${args.author.avatarURL()}` });
+    args.channel.send({embeds: [testEmbed]});
+
+}
+
+export const purgeEmbed = (args, numberOfMessages, description) => {
 
     let embed = new MessageEmbed().setTitle(`${numberOfMessages} Messages purged in #${args.channel.name} `).setDescription(description).setAuthor({ name: `${args.author.username}#${args.author.discriminator}`, iconURL: `${args.author.avatarURL()}` });
     return embed;
@@ -49,4 +64,3 @@ export const deleteEmbed = (args,description,executor) => {
     return embed;
 
 }
-
