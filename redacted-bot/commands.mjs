@@ -23,26 +23,11 @@ const inviteCommand = (args, command) => {
 
 }
 
-const memberCountCommand = (args, command) => {
+const userCountCommand = (args, command) => {
 
     if (checkValidSyntax(args, command, 0)) {
         const count = args.guild.memberCount;
-        args.channel.send(`Member Count ${count}`);
-        reactComplete(args);
-    }
-
-}
-
-const avatarCommand = (args, command) => {
-
-    if (checkValidSyntax(args, command, 1)) {
-        if (command.length === 0) {
-            //embed this whole pic
-            args.channel.send(args.author.avatarURL());
-        }
-        else {
-            //solve for avatar of given tag
-        }
+        args.channel.send(`User Count ${count}`);
         reactComplete(args);
     }
 
@@ -55,51 +40,6 @@ const postCommand = (args, command) => {
         reactComplete(args);
     };
 
-}
-
-const checkValidSyntax = (args, command, parameters) => {
-
-    if (parameters === 'Unlimited') {
-        return true;
-    }
-
-    else if (command.length > parameters) {
-        args.channel.send("Invalid syntax.");
-        reactFail(args);
-        return false;
-    }
-
-    return true;
-
-}
-
-const unknownCommand = (args) => {
-
-    reactFail(args);
-    args.channel.send('Unkown command.');
-
-}
-
-export async function singleDelete(message) {
-
-    if (!message.guild) return;
-    const fetchedLogs = await message.guild.fetchAuditLogs({
-        limit: 1,
-        type: 'MESSAGE_DELETE',
-    });
-    const deletionLog = fetchedLogs.entries.first();
-    if (!deletionLog) return console.log(`A message by ${message.author.tag} was deleted, but no relevant audit logs were found.`);
-    const { executor, target } = deletionLog;
-    let deleter;
-    deleter = (target.id === message.author.id) ? executor : message.author;
-    const messageContent = message.content === '' ? 'Embedded Message' : message.content;
-    const description = `|${message.author.username}#${message.author.discriminator}|: ${messageContent}`;
-    let deleteMessage = deleteEmbed(message, description, deleter);
-    const guild = message.guild;
-    guild.channels.fetch(config.ACTIVITY_CHANNEL_ID)
-        .then(channel => { channel.send({ embeds: [deleteMessage] }) })
-        .catch(console.error);
-    
 }
 
 async function purgeCommand(args, command) {
@@ -135,6 +75,50 @@ const imageCommand = (args, command) => {
 
 }
 
+const avatarCommand = (args, command) => {
+
+    if (checkValidSyntax(args, command, 1)) {
+        if (command.length === 0) {
+            //embed this whole pic
+            args.channel.send(args.author.avatarURL());
+        }
+        else {
+            //solve for avatar of given tag
+        }
+        reactComplete(args);
+    }
+
+}
+
+const unknownCommand = (args) => {
+
+    reactFail(args);
+    args.channel.send('Unkown command.');
+
+}
+
+export async function singleDelete(message) {
+
+    if (!message.guild) return;
+    const fetchedLogs = await message.guild.fetchAuditLogs({
+        limit: 1,
+        type: 'MESSAGE_DELETE',
+    });
+    const deletionLog = fetchedLogs.entries.first();
+    if (!deletionLog) return console.log(`A message by ${message.author.tag} was deleted, but no relevant audit logs were found.`);
+    const { executor, target } = deletionLog;
+    let deleter;
+    deleter = (target.id === message.author.id) ? executor : message.author;
+    const messageContent = message.content === '' ? 'Embedded Message' : message.content;
+    const description = `|${message.author.username}#${message.author.discriminator}|: ${messageContent}`;
+    let deleteMessage = deleteEmbed(message, description, deleter);
+    const guild = message.guild;
+    guild.channels.fetch(config.ACTIVITY_CHANNEL_ID)
+        .then(channel => { channel.send({ embeds: [deleteMessage] }) })
+        .catch(console.error);
+    
+}
+
 const reactComplete = (args) => {
 
     args.react("✅");
@@ -144,6 +128,22 @@ const reactComplete = (args) => {
 export const reactFail = (args) => {
 
     args.react("❌");
+
+}
+
+const checkValidSyntax = (args, command, parameters) => {
+
+    if (parameters === 'Unlimited') {
+        return true;
+    }
+
+    else if (command.length > parameters) {
+        args.channel.send("Invalid syntax.");
+        reactFail(args);
+        return false;
+    }
+
+    return true;
 
 }
 
