@@ -16,7 +16,10 @@ export const roleInfoEmbed = (args) => {
         .join(", ");
 
     var roleInfoList = "";
-    args.guild.roles.cache.forEach(role => roleInfoList = roleInfoList + role.toString() + " - ID: " + role.id + " - Users: " + role.members.size + "\n");
+    args.guild.roles.cache.forEach(role => roleInfoList = roleInfoList + role.toString() + " - ID: **" + role.id + "** - Users: **" + role.members.size + "**\n");
+
+    args.guild.roles.cache.forEach(role => console.log(role));
+    console.log();
 
     const testEmbed = new MessageEmbed().setTitle(`Roles - IDs - Users`).setDescription(roleInfoList).setAuthor({ name: `${args.author.username}#${args.author.discriminator}`, iconURL: `${args.author.avatarURL()}` });
     args.channel.send({embeds: [testEmbed]});
