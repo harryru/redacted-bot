@@ -26,13 +26,13 @@ const client = new Discord.Client({
 
 client.on('ready', () => {
     client.user.setActivity(config.PREFIX, { type: 'LISTENING' });
-    updateUserCount(client);
+    //updateUserCount(client);
     console.log(`Launched as a bot: ${client.user.tag}!`);
 });
 
 client.on('guildMemberAdd', member => {
     if (client.guilds.cache.get(config.SERVER_ID)) {
-        updateUserCount(client);
+        //updateUserCount(client);
         autoRole(member);
         return;
     }
@@ -40,7 +40,7 @@ client.on('guildMemberAdd', member => {
 
 client.on('guildMemberRemove', member => {
     if (client.guilds.cache.get(config.SERVER_ID)) {
-        updateUserCount(client);
+        //updateUserCount(client);
         return;
     }
 });
@@ -55,7 +55,7 @@ client.on('messageCreate', message => {
 });
 
 client.on('messageDelete', message => {
-    if (!message.author.id === config.BOT_ID){
+    if (message.author.id !== config.BOT_ID){
         singleDelete(message);
     }    
   });
