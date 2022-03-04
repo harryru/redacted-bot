@@ -8,7 +8,7 @@ export const constructEmbed = (args) => {
 
 }
 
-export const roleInfoEmbed = (args) => {
+export const roleInfoEmbed = async (args) => {
 
     let rolemap = args.guild.roles.cache
         .sort((a, b) => b.position - a.position)
@@ -16,10 +16,22 @@ export const roleInfoEmbed = (args) => {
         .join(", ");
 
     var roleInfoList = "";
-    args.guild.roles.cache.forEach(role => roleInfoList = roleInfoList + role.toString() + " - ID: **" + role.id + "** - Users: **" + role.members.size + "**\n");
 
-    args.guild.roles.cache.forEach(role => console.log(role));
-    console.log();
+    let allRoles = await args.guild.roles.fetch();
+    
+    
+    allRoles.forEach(role => {
+        let members = ''
+        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        console.log(`ROLE: ${role.name}`)
+        role.members.forEach(member=> {
+            console.log(member.user.tag);
+            members = members + `${member.user.username}`});
+        roleInfoList = roleInfoList + role.toString() + " - ID: **" + role.id + "** - Users: **" + role.members.size + "**\n"
+        console.log(`TOTAL MEMBERS IN ROLE: ${role.members.size}`)
+        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+    });
+    console.log('\n')
 
     const testEmbed = new MessageEmbed().setTitle(`Roles - IDs - Users`).setDescription(roleInfoList).setAuthor({ name: `${args.author.username}#${args.author.discriminator}`, iconURL: `${args.author.avatarURL()}` });
     args.channel.send({embeds: [testEmbed]});
