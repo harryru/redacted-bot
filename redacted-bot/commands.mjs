@@ -35,6 +35,8 @@ const userCountCommand = (args, command) => {
 
 const roleInfoCommand = (args, command) => {
 
+    args.guild.members.fetch()
+
     if (checkValidSyntax(args, command, 0)) {
         roleInfoEmbed(args);
         reactComplete(args);
