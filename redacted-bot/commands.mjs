@@ -108,7 +108,7 @@ const unknownCommand = (args) => {
 
 }
 
-const reactComplete = (args) => {
+export const reactComplete = (args) => {
 
     args.react("✅");
 
@@ -167,6 +167,7 @@ const methods = {
     purge: purgeCommand,
     image: imageCommand,
     avatar: avatarCommand,
+    reactComplete: reactComplete,
     reactFail: reactFail,
     singleDelete: singleDelete,
     unknownCommand: unknownCommand
