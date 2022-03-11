@@ -8,7 +8,7 @@ import { imgSearch } from "./features/imageSearch.mjs";
 const listCommands = (args, command) => {
 
     if (checkValidSyntax(args, command, 0)) {
-        args.channel.send("!r <command> -- commands, invite, usercount, roleinfo, post <content>, purge <#>, image, avatar");
+        args.channel.send("!r <command> -- commands, invite, play, skip, previous, loop, playing, play, pause, resume, queue, clear, shuffle, usercount, roleinfo, post <content>, purge <#>, image, avatar");
         reactComplete(args);
     }
 
