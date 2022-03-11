@@ -8,14 +8,14 @@ import { config } from "./config.mjs";
 
 export const playCommand = async (message, args) => {
 
-    if (!args[0]) return message.channel.send(`Please enter a valid search ${message.author}... try again ? ❌`);
+    if (!args[0]) return message.channel.send(`Please enter a valid search ${message.author}... try again ?`);
 
     const res = await player.search(args.join(' '), {
         requestedBy: message.member,
         searchEngine: QueryType.AUTO
     });
 
-    if (!res || !res.tracks.length) return message.channel.send(`No results found ${message.author}... try again ? ❌`);
+    if (!res || !res.tracks.length) return message.channel.send(`No results found ${message.author}... try again ?`);
 
     const queue = await player.createQueue(message.guild, {
         metadata: message.channel
@@ -25,10 +25,10 @@ export const playCommand = async (message, args) => {
         if (!queue.connection) await queue.connect(message.member.voice.channel);
     } catch {
         await player.deleteQueue(message.guild.id);
-        return message.channel.send(`I can't join the voice channel ${message.author}... try again ? ❌`);
+        return message.channel.send(`I can't join the voice channel ${message.author}... try again ?`);
     }
 
-    await message.channel.send(`Loading your ${res.playlist ? 'playlist' : 'track'}... 🎧`);
+    await message.channel.send(`Loading your ${res.playlist ? 'playlist' : 'track'}...`);
 
     res.playlist ? queue.addTracks(res.tracks) : queue.addTrack(res.tracks[0]);
 
@@ -40,7 +40,7 @@ export const playingCommand = async (message, args, client) => {
 
     const queue = player.getQueue(message.guild.id);
 
-    if (!queue || !queue.playing) return message.channel.send(`No music currently playing ${message.author}... try again ? ❌`);
+    if (!queue || !queue.playing) return message.channel.send(`No music currently playing ${message.author}... try again ?`);
 
     const track = queue.current;
 
@@ -71,66 +71,66 @@ export const pauseCommand = async (message, args, client) => {
 
     const queue = player.getQueue(message.guild.id);
 
-    if (!queue) return message.channel.send(`No music currently playing ${message.author}... try again ? ❌`);
+    if (!queue) return message.channel.send(`No music currently playing ${message.author}... try again ?`);
 
     const success = queue.setPaused(true);
 
-    return message.channel.send(success ? `Current music ${queue.current.title} paused ✅` : `Something went wrong ${message.author}... try again ? ❌`);
+    return message.channel.send(success ? `Current music ${queue.current.title} paused` : `Something went wrong ${message.author}... try again ? ❌`);
 
 }
 
 export const resumeCommand = async (message, args, client) => {
 
     const queue = player.getQueue(message.guild.id);
-    if (!queue) return message.channel.send(`No music currently playing ${message.author}... try again ? ❌`);
+    if (!queue) return message.channel.send(`No music currently playing ${message.author}... try again ?`);
 
     const success = queue.setPaused(false);
 
-    return message.channel.send(success ? `Current music ${queue.current.title} resumed ✅` : `Something went wrong ${message.author}... try again ? ❌`);
+    return message.channel.send(success ? `Current music ${queue.current.title} resumed` : `Something went wrong ${message.author}... try again ?`);
 
 }
 
 export const previousCommand = async (message, args, client) => {
     const queue = player.getQueue(message.guild.id);
 
-    if (!queue || !queue.playing) return message.channel.send(`No music currently playing ${message.author}... try again ? ❌`);
+    if (!queue || !queue.playing) return message.channel.send(`No music currently playing ${message.author}... try again ?`);
 
-    if (!queue.previousTracks[1]) return message.channel.send(`There was no music played before ${message.author}... try again ? ❌`);
+    if (!queue.previousTracks[1]) return message.channel.send(`There was no music played before ${message.author}... try again ?`);
 
     await queue.back();
 
-    message.channel.send(`Playing the **previous** track ✅`);
+    message.channel.send(`Playing the **previous** track`);
 }
 
 export const clearCommand = async (message, args, client) => {
     const queue = player.getQueue(message.guild.id);
 
-    if (!queue || !queue.playing) return message.channel.send(`No music currently playing ${message.author}... try again ? ❌`);
+    if (!queue || !queue.playing) return message.channel.send(`No music currently playing ${message.author}... try again ?`);
 
-    if (!queue.tracks[0]) return message.channel.send(`No music in the queue after the current one ${message.author}... try again ? ❌`);
+    if (!queue.tracks[0]) return message.channel.send(`No music in the queue after the current one ${message.author}... try again ?`);
 
     await queue.clear();
 
-    message.channel.send(`The queue has just been cleared 🗑️`);
+    message.channel.send(`The queue has just been cleared.`);
 }
 
 export const loopCommand = async (message, args, client) => {
     const queue = player.getQueue(message.guild.id);
 
-    if (!queue || !queue.playing) return message.channel.send(`No music currently playing ${message.author}... try again ? ❌`);
+    if (!queue || !queue.playing) return message.channel.send(`No music currently playing ${message.author}... try again ?`);
 
     if (args.join('').toLowerCase() === 'queue') {
-        if (queue.repeatMode === 1) return message.channel.send(`You must first disable the current music in the loop mode (${client.config.app.px}loop) ${message.author}... try again ? ❌`);
+        if (queue.repeatMode === 1) return message.channel.send(`You must first disable the current music in the loop mode (${client.config.app.px}loop) ${message.author}... try again ?`);
 
         const success = queue.setRepeatMode(queue.repeatMode === 0 ? QueueRepeatMode.QUEUE : QueueRepeatMode.OFF);
 
-        return message.channel.send(success ? `Repeat mode **${queue.repeatMode === 0 ? 'disabled' : 'enabled'}** the whole queue will be repeated endlessly 🔁` : `Something went wrong ${message.author}... try again ? ❌`);
+        return message.channel.send(success ? `Repeat mode **${queue.repeatMode === 0 ? 'disabled' : 'enabled'}** the whole queue will be repeated endlessly` : `Something went wrong ${message.author}... try again ?`);
     } else {
-        if (queue.repeatMode === 2) return message.channel.send(`You must first disable the current queue in the loop mode (${client.config.app.px}loop queue) ${message.author}... try again ? ❌`);
+        if (queue.repeatMode === 2) return message.channel.send(`You must first disable the current queue in the loop mode (${client.config.app.px}loop queue) ${message.author}... try again ?`);
 
         const success = queue.setRepeatMode(queue.repeatMode === 0 ? QueueRepeatMode.TRACK : QueueRepeatMode.OFF);
 
-        return message.channel.send(success ? `Repeat mode **${queue.repeatMode === 0 ? 'disabled' : 'enabled'}** the current music will be repeated endlessly (you can loop the queue with the <queue> option) 🔂` : `Something went wrong ${message.author}... try again ? ❌`);
+        return message.channel.send(success ? `Repeat mode **${queue.repeatMode === 0 ? 'disabled' : 'enabled'}** the current music will be repeated endlessly (you can loop the queue with the <queue> option) 🔂` : `Something went wrong ${message.author}... try again ?`);
     };
 
 }
@@ -138,9 +138,9 @@ export const loopCommand = async (message, args, client) => {
 export const queueCommand = async (message, args, client) => {
     const queue = player.getQueue(message.guild.id);
 
-    if (!queue) return message.channel.send(`No music currently playing ${message.author}... try again ? ❌`);
+    if (!queue) return message.channel.send(`No music currently playing ${message.author}... try again ?`);
 
-    if (!queue.tracks[0]) return message.channel.send(`No music in the queue after the current one ${message.author}... try again ? ❌`);
+    if (!queue.tracks[0]) return message.channel.send(`No music in the queue after the current one ${message.author}... try again ?`);
 
     const embed = new MessageEmbed();
     const methods = ['', '🔁', '🔂'];
@@ -165,23 +165,23 @@ export const queueCommand = async (message, args, client) => {
 export const shuffleCommand = async (message, args, client) => {
     const queue = player.getQueue(message.guild.id);
 
-    if (!queue || !queue.playing) return message.channel.send(`No music currently playing ${message.author}... try again ? ❌`);
+    if (!queue || !queue.playing) return message.channel.send(`No music currently playing ${message.author}... try again ?`);
 
-    if (!queue.tracks[0]) return message.channel.send(`No music in the queue after the current one ${message.author}... try again ? ❌`);
+    if (!queue.tracks[0]) return message.channel.send(`No music in the queue after the current one ${message.author}... try again ?`);
 
     await queue.shuffle();
 
-    return message.channel.send(`Queue shuffled **${queue.tracks.length}** song(s) ! ✅`);
+    return message.channel.send(`Queue shuffled **${queue.tracks.length}** song(s) !`);
 }
 
 export const skipCommand = async (message, args, client) => {
     const queue = player.getQueue(message.guild.id);
 
-    if (!queue || !queue.playing) return message.channel.send(`No music currently playing ${message.author}... try again ? ❌`);
+    if (!queue || !queue.playing) return message.channel.send(`No music currently playing ${message.author}... try again ?`);
 
     const success = queue.skip();
 
-    return message.channel.send(success ? `Current music ${queue.current.title} skipped ✅` : `Something went wrong ${message.author}... try again ? ❌`);
+    return message.channel.send(success ? `Current music ${queue.current.title} skipped` : `Something went wrong ${message.author}... try again ?`);
 }
 
 
