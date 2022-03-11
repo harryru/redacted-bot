@@ -18,6 +18,8 @@ export const playCommand = async (message, args) => {
     if (!res || !res.tracks.length) return message.channel.send(`No results found ${message.author}... try again ?`);
 
     const queue = await player.createQueue(message.guild, {
+        leaveOnEnd: false,
+        leaveOnEmptyCooldown: 300000, //300000 (ms) is 5min
         metadata: message.channel
     });
 
