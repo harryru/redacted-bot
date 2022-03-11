@@ -166,7 +166,7 @@ export const loopCommand = async (message, args, client) => {
 
     if (args.join('').toLowerCase() === 'queue') {
         if (queue.repeatMode === 1) {
-            message.channel.send(`You must first disable the current music in the loop mode (${client.config.app.px}loop) ${message.author}.`);
+            message.channel.send(`You must first disable the current music in the loop mode ${message.author}.`);
             reactFail(message);
             return;
         }
@@ -176,7 +176,7 @@ export const loopCommand = async (message, args, client) => {
         return message.channel.send(success ? `Loop mode **${queue.repeatMode === 0 ? 'disabled' : 'enabled'}** the whole queue will be repeated endlessly` : `Something went wrong ${message.author}.`);
     } else {
         if (queue.repeatMode === 2) {
-            message.channel.send(`You must first disable the current queue in the loop mode (${client.config.app.px}loop queue) ${message.author}.`);
+            message.channel.send(`You must first disable the current queue in the loop mode ${message.author}.`);
             reactFail(message);
             return;
         }
