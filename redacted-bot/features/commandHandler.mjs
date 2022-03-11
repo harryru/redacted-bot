@@ -1,5 +1,6 @@
 import { reactFail } from "../commands.mjs";
 import methods from "../commands.mjs";
+import musicMethods from "../musicCommands.mjs";
 import {config} from "../config.mjs";
 
 export const commandParser = (args,command,client) => {
@@ -8,17 +9,21 @@ export const commandParser = (args,command,client) => {
     command.splice(0, 1);
 
     if (command.length === 0) {
-
         methods['commands'](args,command);
         return;
 
     }
 
-    if ((typeof methods[command[0].toLowerCase()]) === 'undefined') {
-
+    if ((typeof methods[command[0].toLowerCase()]) === 'undefined' && (typeof musicMethods[command[0].toLowerCase()]) === 'undefined') {
         methods['unknownCommand'](args,command);
     }
-    
+    else if((typeof musicMethods[command[0].toLowerCase()]) !== 'undefined'){
+        let cmd = command.slice();
+        if (permissionCheck(args,command[0].toLowerCase())) {
+            cmd.splice(0, 1);
+            musicMethods[command[0].toLowerCase()](args,cmd,client);
+        }
+    }
     else {
         let cmd = command.slice();
         if (permissionCheck(args,command[0].toLowerCase())) {
@@ -89,6 +94,46 @@ const PERMISSIONS = {
         user: [config.ADMIN_ROLE_ID]
     },
     avatar: {
+        channels: [config.BOT_CHANNEL_ID],
+        user: ['EVERYONE', config.ADMIN_ROLE_ID]
+    },
+    play: {
+        channels: [config.BOT_CHANNEL_ID],
+        user: ['EVERYONE', config.ADMIN_ROLE_ID]
+    },
+    playing: {
+        channels: [config.BOT_CHANNEL_ID],
+        user: ['EVERYONE', config.ADMIN_ROLE_ID]
+    },
+    pause: {
+        channels: [config.BOT_CHANNEL_ID],
+        user: ['EVERYONE', config.ADMIN_ROLE_ID]
+    },
+    resume: {
+        channels: [config.BOT_CHANNEL_ID],
+        user: ['EVERYONE', config.ADMIN_ROLE_ID]
+    },
+    previous: {
+        channels: [config.BOT_CHANNEL_ID],
+        user: ['EVERYONE', config.ADMIN_ROLE_ID]
+    },
+    clear: {
+        channels: [config.BOT_CHANNEL_ID],
+        user: ['EVERYONE', config.ADMIN_ROLE_ID]
+    },
+    loop: {
+        channels: [config.BOT_CHANNEL_ID],
+        user: ['EVERYONE', config.ADMIN_ROLE_ID]
+    },
+    queue: {
+        channels: [config.BOT_CHANNEL_ID],
+        user: ['EVERYONE', config.ADMIN_ROLE_ID]
+    },
+    shuffle: {
+        channels: [config.BOT_CHANNEL_ID],
+        user: ['EVERYONE', config.ADMIN_ROLE_ID]
+    },
+    skip: {
         channels: [config.BOT_CHANNEL_ID],
         user: ['EVERYONE', config.ADMIN_ROLE_ID]
     }
