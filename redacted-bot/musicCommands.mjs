@@ -94,6 +94,7 @@ export const pauseCommand = async (message, args, client) => {
 
     const success = queue.setPaused(true);
 
+    success ? reactComplete(message) : reactFail(message);
     return message.channel.send(success ? `Current music ${queue.current.title} paused` : `Something went wrong ${message.author}.`);
 
 }
@@ -109,6 +110,7 @@ export const resumeCommand = async (message, args, client) => {
 
     const success = queue.setPaused(false);
 
+    success ? reactComplete(message) : reactFail(message);
     return message.channel.send(success ? `Current music ${queue.current.title} resumed` : `Something went wrong ${message.author}.`);
 
 }
@@ -173,6 +175,7 @@ export const loopCommand = async (message, args, client) => {
 
         const success = queue.setRepeatMode(queue.repeatMode === 0 ? QueueRepeatMode.QUEUE : QueueRepeatMode.OFF);
 
+        success ? reactComplete(message) : reactFail(message);
         return message.channel.send(success ? `Loop mode **${queue.repeatMode === 0 ? 'disabled' : 'enabled'}** the whole queue will be repeated endlessly` : `Something went wrong ${message.author}.`);
     } else {
         if (queue.repeatMode === 2) {
@@ -183,6 +186,7 @@ export const loopCommand = async (message, args, client) => {
 
         const success = queue.setRepeatMode(queue.repeatMode === 0 ? QueueRepeatMode.TRACK : QueueRepeatMode.OFF);
 
+        success ? reactComplete(message) : reactFail(message);
         return message.channel.send(success ? `Loop mode **${queue.repeatMode === 0 ? 'disabled' : 'enabled'}** the current music will be repeated endlessly.` : `Something went wrong ${message.author}.`);
     };
 
@@ -256,6 +260,7 @@ export const skipCommand = async (message, args, client) => {
 
     const success = queue.skip();
 
+    success ? reactComplete(message) : reactFail(message);
     return message.channel.send(success ? `Current music ${queue.current.title} skipped` : `Something went wrong ${message.author}.`);
 }
 
