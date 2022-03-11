@@ -1,5 +1,6 @@
 import {commandParser} from './features/commandHandler.mjs'
 import {updateUserCount} from './features/updateUserCount.mjs';
+import { Player } from 'discord-player';
 import {autoRole} from './features/autoRole.mjs';
 import {singleDelete} from './commands.mjs';
 
@@ -23,6 +24,8 @@ const client = new Discord.Client({
         Discord.Intents.FLAGS.GUILD_SCHEDULED_EVENTS
     ]
 });
+
+global.player = new Player(client, config.opt.discordPlayer);
 
 client.on('ready', () => {
     client.user.setActivity(config.PREFIX, { type: 'LISTENING' });
