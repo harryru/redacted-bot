@@ -3,7 +3,7 @@ import {config} from '../config.mjs';
 
 export const constructEmbed = (args) => {
 
-    const testEmbed = new MessageEmbed(args).setDescription(args.content.slice(8));
+    const testEmbed = new MessageEmbed(args).setColor('RED').setDescription(args.content.slice(8));
     args.channel.send({embeds: [testEmbed]});
 
 }
@@ -23,14 +23,14 @@ export const roleInfoEmbed = async (args) => {
         roleInfoList = roleInfoList + role.toString() + " - ID: **" + role.id + "** - Users: **" + role.members.size + "**\n"
     });
 
-    const testEmbed = new MessageEmbed().setTitle(`Roles - IDs - Users`).setDescription(roleInfoList).setAuthor({ name: `${args.author.username}#${args.author.discriminator}`, iconURL: `${args.author.avatarURL()}` });
+    const testEmbed = new MessageEmbed().setColor('RED').setTitle(`Roles - IDs - Users`).setDescription(roleInfoList).setAuthor({ name: `${args.author.username}#${args.author.discriminator}`, iconURL: `${args.author.avatarURL()}` });
     args.channel.send({embeds: [testEmbed]});
 
 }
 
 export const purgeEmbed = (args, numberOfMessages, description) => {
 
-    let embed = new MessageEmbed().setTitle(`${numberOfMessages} Messages purged in #${args.channel.name} `).setDescription(description).setAuthor({ name: `${args.author.username}#${args.author.discriminator}`, iconURL: `${args.author.avatarURL()}` });
+    let embed = new MessageEmbed().setColor('RED').setTitle(`${numberOfMessages} Messages purged in #${args.channel.name} `).setDescription(description).setAuthor({ name: `${args.author.username}#${args.author.discriminator}`, iconURL: `${args.author.avatarURL()}` });
     return embed;
 
 }
@@ -59,11 +59,11 @@ export const deleteEmbed = (args,description,executor) => {
     let embed;
 
     if (executor) {
-        embed = new MessageEmbed().setTitle(`Message deleted in #${args.channel.name}`).setDescription(description).setAuthor({ name: `${executor.username}#${executor.discriminator}`, iconURL: `${executor.avatarURL()}` });
+        embed = new MessageEmbed().setColor('RED').setTitle(`Message deleted in #${args.channel.name}`).setDescription(description).setAuthor({ name: `${executor.username}#${executor.discriminator}`, iconURL: `${executor.avatarURL()}` });
     }
     
     else {
-        embed = new MessageEmbed().setTitle(`Message deleted in #${args.channel.name}`).setDescription(description).setAuthor({ name: `${args.author.username}#${args.author.discriminator}`, iconURL: `${args.author.avatarURL()}` });
+        embed = new MessageEmbed().setColor('RED').setTitle(`Message deleted in #${args.channel.name}`).setDescription(description).setAuthor({ name: `${args.author.username}#${args.author.discriminator}`, iconURL: `${args.author.avatarURL()}` });
     }
 
     return embed;
