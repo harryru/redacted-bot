@@ -1,6 +1,5 @@
 import {commandParser} from './features/commandHandler.mjs'
 import {updateUserCount} from './features/updateUserCount.mjs';
-import { Player } from 'discord-player';
 import {autoRole} from './features/autoRole.mjs';
 import {singleDelete} from './commands.mjs';
 import { Player } from 'discord-player';
