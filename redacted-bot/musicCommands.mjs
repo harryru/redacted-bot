@@ -26,8 +26,6 @@ export const playCommand = async (message, args) => {
     }
 
     const queue = await player.createQueue(message.guild, {
-        leaveOnEnd: false,
-        leaveOnEmptyCooldown: 300000, //300000 (ms) is 5min
         metadata: message.channel
     });
 

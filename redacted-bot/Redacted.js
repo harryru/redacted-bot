@@ -62,4 +62,12 @@ client.on('messageDelete', message => {
     }    
   });
 
+  client.on('voiceStateUpdate', (oldMember, newMember) => {
+    let channelMembers = oldMember?.channel?.members
+    if(channelMembers && channelMembers.size === 1){
+      oldMember?.channel?.members?.get(config.BOT_ID)?.voice?.disconnect();
+    }
+ });
+
+
 client.login(config.BOT_TOKEN);
