@@ -66,8 +66,8 @@ client.on('messageDelete', message => {
     let channelMembers = oldMember?.channel?.members
     if(channelMembers && channelMembers.size === 1){
       oldMember?.channel?.members?.get(config.BOT_ID)?.voice?.disconnect();
+      player.deleteQueue(oldMember.guild);
     }
  });
-
 
 client.login(config.BOT_TOKEN);
